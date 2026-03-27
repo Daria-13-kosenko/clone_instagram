@@ -5,6 +5,7 @@ import userRoutes from './routes/userRoutes.js'
 import postRoutes from './routes/postRoutes.js'
 import commentRoutes from './routes/commentRoutes.js'
 import likeRoutes from './routes/likeRoutes.js'
+import searchRoutes from './routes/searchRoutes.js'
 
 const app = express()
 
@@ -20,5 +21,6 @@ app.use('/api/users', userRoutes)
 app.use('/api/posts', postRoutes)
 app.use('/api/comments', commentRoutes)
 app.use('/api/likes', likeRoutes)
+app.use('/api/search', searchRoutes)
 
 export default app
