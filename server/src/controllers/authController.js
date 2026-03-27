@@ -14,15 +14,17 @@ export const registerUser = async (req, res) => {
       return res.status(400).json({
         message: 'All fields are required',
       })
+    }
 
-      const existingUserByEmail = await User.findOne({ email })
-      if (existingUserByEmail) {
-        return res.status(400).json({
-          message: 'User with this email already exists',
-        })
-      }
-      const existingUserByUsername = await User.findOne({ username })
-      if (existingUserByUsername) Ü
+    const existingUserByEmail = await User.findOne({ email })
+    if (existingUserByEmail) {
+      return res.status(400).json({
+        message: 'User with this email already exists',
+      })
+    }
+
+    const existingUserByUsername = await User.findOne({ username })
+    if (existingUserByUsername) {
       return res.status(400).json({
         message: 'Username already taken',
       })
@@ -40,7 +42,7 @@ export const registerUser = async (req, res) => {
     const token = generateToken(user._id)
 
     res.status(201).json({
-      message: 'User registred successfully',
+      message: 'User registered successfully',
       token,
       user: {
         id: user._id,
