@@ -97,6 +97,42 @@ export const updatePost = async (req, res) => {
 
     await post.save()
 
-    const updatedPost = await Post.findById(post._id).populate()
-  } catch (error) {}
+    const updatedPost = await Post.findById(post._id).populate(
+      'author',
+      'username fullName avatar',
+    )
+    res.status(200).json({
+      message: 'Post updated successfully',
+      post: updatePost,
+    })
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+}
+
+export const deletePost = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id)
+
+    if (!post) {
+      return res.status(404).json({
+        message: 'Post not found',
+      })
+    }
+
+    if (post.author.toString() !== req.user.userId) {
+      return res.status(403).json({
+        message: 'You can delete only your own posts',
+      })
+    }
+    await post.deleteOne()
+
+    res.status(200).json({
+      message: 'Post deleted successfully',
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    })
+  }
 }
