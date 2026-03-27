@@ -1,8 +1,11 @@
-import axios from 'axios'
+import API from './axios'
 
-const API = axios.create({
-  baseURL: 'http://localhost:5000/api',
-})
+export const registerUser = async (userData) => {
+  const response = await API.post('/auth/register', userData)
+  return response.data
+}
 
-export const registerUser = (userData) => API.post('/auth/register', userData)
-export const loginUser = (userData) => API.post('/auth/login', userData)
+export const liginUser = async (userData) => {
+  const response = await API.post('/auth/login', userData)
+  return response.data
+}
