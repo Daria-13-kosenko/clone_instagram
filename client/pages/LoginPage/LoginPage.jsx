@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { loginUser } from '../src/api/authApi'
-import { useAuth } from '../context/AuthContext'
+import { loginUser } from '../../src/api/authApi.js'
+import { useAuth } from '../../context/AuthContext.jsx'
 import styles from './LoginPage.module.css'
-import Telephone from '../src/assets/img/Telephone1.svg'
-import Ichgra from '../src/assets/img/Ichra.svg'
+import Telephone from '../../src/assets/img/Telephone1.svg'
+import Ichgra from '../../src/assets/img/Ichra.svg'
 
 const LoginPage = () => {
   const navigate = useNavigate()

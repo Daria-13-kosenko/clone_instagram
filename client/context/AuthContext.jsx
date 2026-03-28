@@ -28,9 +28,9 @@ export const AuthProvider = ({ children }) => {
     }
   }, [])
 
-  const login = (token) => {
+  const login = async (token) => {
     localStorage.setItem('token', token)
-    fetchProfile()
+    await fetchProfile()
   }
 
   const logout = () => {
