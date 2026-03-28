@@ -3,7 +3,7 @@ import HomePage from '../pages/HomePage/HomePage.jsx'
 import LoginPage from '../pages/LoginPage/LoginPage.jsx'
 import RegisterPage from '../pages/RegisterPage/RegisterPage.jsx'
 import ProfilePage from '../pages/ProfilePage/ProfilePage.jsx'
-import { useAuth } from '../../context/AuthContext.jsx'
+import { useAuth } from '../context/AuthContext.jsx'
 const AppRouter = () => {
   const { user } = useAuth()
   return (
