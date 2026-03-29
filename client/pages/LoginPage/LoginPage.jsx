@@ -75,9 +75,9 @@ const LoginPage = () => {
             <span></span>
           </div>
 
-          <a href="#" className={styles.forgotPassword}>
+          <Link to="/forgot-password" className={styles.forgotPassword}>
             Forgot password?
-          </a>
+          </Link>
         </div>
 
         <div className={styles.login_lower}>

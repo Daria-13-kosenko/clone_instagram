@@ -4,6 +4,8 @@ import LoginPage from '../pages/LoginPage/LoginPage.jsx'
 import RegisterPage from '../pages/RegisterPage/RegisterPage.jsx'
 import ProfilePage from '../pages/ProfilePage/ProfilePage.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
+import ForgotPasswordPage from '../pages/ForgotPasswordPage/ForgotPassword.jsx'
+
 const AppRouter = () => {
   const { user } = useAuth()
   return (
@@ -16,6 +18,7 @@ const AppRouter = () => {
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/home" element={<HomePage />} />
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
     </Routes>
   )
 }
