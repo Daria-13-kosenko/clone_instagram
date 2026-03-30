@@ -9,7 +9,7 @@ import Message from '../../src/assets/icons/Messenger.svg'
 import Notification from '../../src/assets/icons/Notification.svg'
 import Create from '../../src/assets/icons/Create.svg'
 
-const Sidebar = () => {
+const Sidebar = (onCreateClick) => {
   return (
     <aside className={styles.sidebar}>
       <div className={styles.top}>
@@ -43,7 +43,7 @@ const Sidebar = () => {
             <span>Notification</span>
           </Link>
 
-          <Link to="/create" className={styles.navItem}>
+          <Link to="/create" className={styles.navItem} onClick={onCreateClick}>
             <img src={Create} alt="Create" />
             <span>Create</span>
           </Link>

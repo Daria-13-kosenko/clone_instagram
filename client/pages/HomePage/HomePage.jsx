@@ -1,71 +1,37 @@
 import styles from './HomePage.module.css'
-
-const posts = [
-  {
-    id: 1,
-    author: 'sashko',
-    time: '2 week',
-    image:
-      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop',
-    likes: '101 824',
-    caption: 'Saturn ✨ #galina_ #people?',
-  },
-  {
-    id: 2,
-    author: 'sashko',
-    time: '2 week',
-    image:
-      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop',
-    likes: '101 824',
-    caption: 'Saturn ✨ #galina_ #people?',
-  },
-  {
-    id: 3,
-    author: 'sashko',
-    time: '2 week',
-    image:
-      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop',
-    likes: '101 824',
-    caption: 'Saturn ✨ #galina_ #people?',
-  },
-  {
-    id: 4,
-    author: 'sashko',
-    time: '2 week',
-    image:
-      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop',
-    likes: '101 824',
-    caption: 'Saturn ✨ #galina_ #people?',
-  },
-]
+import { useEffect, useState } from 'react'
+import { getAllPosts } from '../../src/api/postApi'
+import PostCard from '../../components/PostCard/PostCard.jsx'
+import AppLayout from '../../components/AppLayout/AppLayout.jsx'
 
 const HomePage = () => {
+  const [posts, setPosts] = useState([])
+
+  const loadPosts = async () => {
+    try {
+      const data = await getAllPosts()
+      setPosts(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    loadPosts()
+  }, [])
+
+  const handlePostCreated = (newPost) => {
+    setPosts((prev) => [newPost, ...prev])
+  }
+
   return (
-    <div className={styles.page}>
-      <div className={styles.grid}>
+    <AppLayout onPostCreated={handlePostCreated}>
+      <div className={styles.feed}>
         {posts.map((post) => (
-          <article key={post.id} className={styles.card}>
-            <div className={styles.cardHeader}>
-              <div className={styles.avatar}></div>
-              <p>
-                <strong>{post.author}</strong> · {post.time} · {''}
-                <span className={styles.follow}>follow</span>
-              </p>
-            </div>
-            <img src={post.image} alt={post.caption} className={styles.image} />
-
-            <div className={styles.actions}>♡ ○</div>
-
-            <p className={styles.likes}>{post.likes}likes</p>
-            <p className={styles.caption}>
-              <strong>{post.author}</strong>
-              {post.caption}
-            </p>
-            <p className={styles.comments}>View all comments (23)</p>
-          </article>
+          <PostCard key={post._id} post={post} />
         ))}
       </div>
-    </div>
+    </AppLayout>
   )
 }
 

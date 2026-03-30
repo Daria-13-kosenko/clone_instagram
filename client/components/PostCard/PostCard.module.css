@@ -1,0 +1,82 @@
+.card {
+  width: 100%;
+  max-width: 470px;
+  margin: 0 auto 28px;
+  background: #fff;
+  border: 1px solid #dbdbdb;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #f9ce34, #ee2a7b, #6228d7);
+}
+
+.image {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.actions {
+  padding: 10px 14px 0;
+}
+
+.actions button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.likes,
+.caption,
+.comments {
+  padding: 0 14px;
+}
+
+.likes {
+  font-weight: 600;
+  margin: 10px 0 8px;
+}
+
+.caption {
+  margin: 0 0 10px;
+}
+
+.comments p {
+  margin: 6px 0;
+  font-size: 14px;
+}
+
+.commentForm {
+  display: flex;
+  border-top: 1px solid #efefef;
+  margin-top: 12px;
+}
+
+.commentForm input {
+  flex: 1;
+  border: none;
+  padding: 14px;
+  outline: none;
+}
+
+.commentForm button {
+  border: none;
+  background: transparent;
+  color: #0095f6;
+  font-weight: 600;
+  padding: 0 14px;
+  cursor: pointer;
+}
