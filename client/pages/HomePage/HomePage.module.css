@@ -1,0 +1,58 @@
+.page {
+  width: 100%;
+}
+.grid {
+  max-width: 920px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(280px, 1fr));
+  gap: 36px 28px;
+}
+.card {
+  background: transparent;
+}
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: #262626;
+}
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}
+.follow {
+  color: #0095f6;
+}
+.image {
+  width: 100%;
+  aspect-ratio: 1/ 1.1;
+  object-fit: cover;
+  display: block;
+  border-radius: 2px;
+}
+.actions {
+  margin: 8px 0 6px;
+  font-size: 18px;
+  color: #262626;
+}
+.likes,
+.caption,
+.comments {
+  margin: 4px 0;
+  font-size: 12px;
+  color: #262626;
+}
+.comments {
+  color: #8e8e8e;
+}
+
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: 1fr;
+    max-width: 470px;
+  }
+}
