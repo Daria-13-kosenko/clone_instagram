@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
-import { useAuth } from '../../context/AuthContext'
+// import { useAuth } from '../../context/AuthContext'
 import styles from './Sidebar.module.css'
 import Ichra from '../../src/assets/img/Ichra.svg'
 import Home from '../../src/assets/icons/Home.svg'
@@ -11,49 +10,48 @@ import Notification from '../../src/assets/icons/Notification.svg'
 import Create from '../../src/assets/icons/Create.svg'
 
 const Sidebar = () => {
-  const [collapsed, setCollapset] = useState(false)
-
   return (
-    <aside className={`${styles.sidebar} ${collapsed ? styles.collapsed : ''}`}>
+    <aside className={styles.sidebar}>
       <div className={styles.top}>
         <div className={styles.logoWrapper}>
-          {!collapsed && <img src={Ichra} alt="Logo" className={styles.logo} />}
-          <button
-            className={styles.toggleBtn}
-            onClick={() => setCollapset(!collapsed)}
-          >
-            {collapsed ? '-' : '-'}
-          </button>
+          <img src={Ichra} alt="Logo" className={styles.logo} />
         </div>
+
         <nav className={styles.nav}>
-          <link to="/home">
+          <Link to="/home" className={styles.navItem}>
             <img src={Home} alt="Home" />
-            Home
-          </link>
-          <link to="/search">
+            <span>Home</span>
+          </Link>
+
+          <Link to="/search" className={styles.navItem}>
             <img src={Search} alt="Search" />
-            Search
-          </link>
-          <link to="/explore">
+            <span>Search</span>
+          </Link>
+
+          <Link to="/explore" className={styles.navItem}>
             <img src={Explore} alt="Explore" />
-            Explore
-          </link>
-          <link to="message">
+            <span>Explore</span>
+          </Link>
+
+          <Link to="/message" className={styles.navItem}>
             <img src={Message} alt="Message" />
-            Message
-          </link>
-          <link to="/notification">
+            <span>Message</span>
+          </Link>
+
+          <Link to="/notification" className={styles.navItem}>
             <img src={Notification} alt="Notification" />
-            Notification
-          </link>
-          <link to="create">
+            <span>Notification</span>
+          </Link>
+
+          <Link to="/create" className={styles.navItem}>
             <img src={Create} alt="Create" />
-            Create
-          </link>
-          <link to="/profile">
-            <img />
-            Profile
-          </link>
+            <span>Create</span>
+          </Link>
+
+          <Link to="/profile" className={styles.navItem}>
+            <span className={styles.profileCircle}></span>
+            <span>Profile</span>
+          </Link>
         </nav>
       </div>
     </aside>

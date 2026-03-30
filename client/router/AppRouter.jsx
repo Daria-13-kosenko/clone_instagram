@@ -7,7 +7,7 @@ import { useAuth } from '../context/AuthContext.jsx'
 import ForgotPasswordPage from '../pages/ForgotPasswordPage/ForgotPassword.jsx'
 import AppLayout from '../components/AppLayout/AppLayout.jsx'
 
-const AppContent = () => {
+const AppRouter = () => {
   const { user } = useAuth()
   const location = useLocation()
 
@@ -51,14 +51,6 @@ const AppContent = () => {
         }
       />
     </Routes>
-  )
-}
-
-const AppRouter = () => {
-  return (
-    <BrowserRouter>
-      <AppContent />
-    </BrowserRouter>
   )
 }
 

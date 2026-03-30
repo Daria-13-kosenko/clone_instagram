@@ -1,3 +1,69 @@
 .sidebar {
   width: 245px;
+  min-width: 245px;
+  height: 100vh;
+  border-right: 1px solid #dbdbdb;
+  background: #fff;
+  padding: 20px 14px;
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+}
+
+.logoWrapper {
+  margin-bottom: 30px;
+  padding: 8px 10px;
+}
+
+.logo {
+  width: 110px;
+  height: auto;
+  display: block;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #262626;
+  font-size: 15px;
+  padding: 12px 10px;
+  border-radius: 10px;
+  transition: background 0.2s ease;
+}
+
+.navItem:hover {
+  background: #f2f2f2;
+}
+
+.navItem img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.profileCircle {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid #262626;
+  display: inline-block;
+}
+
+@media (max-width: 900px) {
+  .sidebar {
+    display: none;
+  }
 }
