@@ -1,20 +1,14 @@
 import Like from '../models/Like.js'
 import Post from '../models/Post.js'
+import Notification from '../models/Notification.js'
 
 export const likePost = async (req, res) => {
   try {
+    const userId = req.user.id
     const { postId } = req.params
 
-    const post = await Post.findById(postId)
-
-    if (!post) {
-      return res.status(404).json({
-        message: 'Post not found',
-      })
-    }
-
     const existingLike = await Like.findOne({
-      user: req.user.userId,
+      user: userId,
       post: postId,
     })
 
@@ -24,9 +18,20 @@ export const likePost = async (req, res) => {
       })
     }
     await Like.create({
-      user: req.user.userId,
+      user: userId,
       post: postId,
     })
+
+    const post = await Post.findById(postId)
+
+    if (post.author.toString() !== userId) {
+      await Notification.create({
+        recipient: post.author,
+        sender: userId,
+        type: 'like',
+        post: postId,
+      })
+    }
 
     const likesCount = await Like.countDocuments({ post: postId })
 

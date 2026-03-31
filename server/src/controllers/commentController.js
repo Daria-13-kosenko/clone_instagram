@@ -1,8 +1,10 @@
 import Comment from '../models/Comment.js'
 import Post from '../models/Post.js'
+import Notification from '../models/Notification.js'
 
 export const createComment = async (req, res) => {
   try {
+    const userId = req.user.id
     const { text } = req.body
     const { postId } = req.params
 
@@ -14,21 +16,25 @@ export const createComment = async (req, res) => {
 
     const post = await Post.findById(postId)
 
-    if (!post) {
-      return res.status(404).json({
-        message: 'Post not found',
+    if (post.author.toString() !== userId) {
+      await Notification.create({
+        recipient: post.author,
+        sender: userId,
+        type: 'comment',
+        post: postId,
+        commentText: text,
       })
     }
 
     const comment = await Comment.create({
-      text: text.trim(),
-      author: req.user.userId,
+      text,
+      author: userId,
       post: postId,
     })
 
     const populatedComment = await Comment.findById(comment._id).populate(
       'author',
-      'username fullName avatar',
+      'username',
     )
 
     res.status(201).json({
