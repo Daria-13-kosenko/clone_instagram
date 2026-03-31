@@ -5,26 +5,27 @@ import CreatePostForm from '../CreatePostForm/CreatePostForm.jsx'
 import { useState } from 'react'
 
 const AppLayout = ({ children, onPostCreated }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [isCreateOpen, setIsCreateOpen] = useState(false)
+
+  const handleOpenCreate = () => {
+    setIsCreateOpen(true)
+  }
+  const handleCloseCreate = () => {
+    setIsCreateOpen(false)
+  }
 
   return (
     <div className={styles.wrapper}>
-      <Sidebar
-        isOpen={isSidebarOpen}
-        onClose={() => setIsSidebarOpen(false)}
-        onCreateClick={() => setIsCreateOpen(true)}
-      />
+      <Sidebar handleOpen={handleOpenCreate} />
 
       <div className={styles.contentArea}>
         <main className={styles.main}>{children}</main>
         <Footer />
       </div>
+
       <CreatePostForm
         isOpen={isCreateOpen}
-        onClose={() => {
-          setIsCreateOpen(false)
-        }}
+        onClose={handleCloseCreate}
         onPostCreated={onPostCreated}
       />
     </div>

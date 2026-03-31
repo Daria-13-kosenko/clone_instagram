@@ -44,6 +44,33 @@
   transition: background 0.2s ease;
 }
 
+.navItemButton {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 12px 10px;
+  border-radius: 12px;
+  box-sizing: border-box;
+
+  color: #262626;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+.navItemButton:hover {
+  background: #f2f2f2;
+}
 .navItem:hover {
   background: #f2f2f2;
 }

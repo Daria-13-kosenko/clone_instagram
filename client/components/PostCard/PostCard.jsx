@@ -17,7 +17,8 @@ const PostCard = ({ post }) => {
   const loadLikes = async () => {
     try {
       const data = await getPostLikes(post._id)
-      setLikesCount(data.likesCount)
+      setLikesCount(data.likesCount || 0)
+      setIsLiked(data.isLiked || false)
     } catch (error) {
       console.log(error)
     }
@@ -26,9 +27,10 @@ const PostCard = ({ post }) => {
   const loadComments = async () => {
     try {
       const data = await getCommentsByPost(post._id)
-      setComments(data)
+      setComments(Array.isArray(data) ? data : data.comments || [])
     } catch (error) {
       console.log(error)
+      setComments([])
     }
   }
 

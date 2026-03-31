@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import HomePage from '../pages/HomePage/HomePage.jsx'
 import LoginPage from '../pages/LoginPage/LoginPage.jsx'
 import RegisterPage from '../pages/RegisterPage/RegisterPage.jsx'
@@ -6,13 +6,15 @@ import ProfilePage from '../pages/ProfilePage/ProfilePage.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
 import ForgotPasswordPage from '../pages/ForgotPasswordPage/ForgotPassword.jsx'
 import AppLayout from '../components/AppLayout/AppLayout.jsx'
+import CreatePostForm from '../components/CreatePostForm/CreatePostForm.jsx'
+
+const SearchPage = () => <div>Search page</div>
+const ExplorePage = () => <div>Explore page</div>
+const MessagePage = () => <div>Message page</div>
+const NotificationPage = () => <div>Notification page</div>
 
 const AppRouter = () => {
   const { user } = useAuth()
-  const location = useLocation()
-
-  const authPages = ['/login', '/register', '/forgot-password']
-  const isAuthPage = authPages.includes(location.pathname)
 
   return (
     <Routes>
@@ -27,15 +29,7 @@ const AppRouter = () => {
 
       <Route
         path="/home"
-        element={
-          user ? (
-            <AppLayout>
-              <HomePage />
-            </AppLayout>
-          ) : (
-            <Navigate to="/login" />
-          )
-        }
+        element={user ? <HomePage /> : <Navigate to="/login" />}
       />
 
       <Route
@@ -44,6 +38,58 @@ const AppRouter = () => {
           user ? (
             <AppLayout>
               <ProfilePage />
+            </AppLayout>
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
+      />
+
+      <Route
+        path="/search"
+        element={
+          user ? (
+            <AppLayout>
+              <SearchPage />
+            </AppLayout>
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
+      />
+
+      <Route
+        path="/explore"
+        element={
+          user ? (
+            <AppLayout>
+              <ExplorePage />
+            </AppLayout>
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
+      />
+
+      <Route
+        path="/message"
+        element={
+          user ? (
+            <AppLayout>
+              <MessagePage />
+            </AppLayout>
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
+      />
+
+      <Route
+        path="/notification"
+        element={
+          user ? (
+            <AppLayout>
+              <NotificationPage />
             </AppLayout>
           ) : (
             <Navigate to="/login" />

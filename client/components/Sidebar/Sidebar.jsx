@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-// import { useAuth } from '../../context/AuthContext'
 import styles from './Sidebar.module.css'
 import Ichra from '../../src/assets/img/Ichra.svg'
 import Home from '../../src/assets/icons/Home.svg'
@@ -9,7 +8,7 @@ import Message from '../../src/assets/icons/Messenger.svg'
 import Notification from '../../src/assets/icons/Notification.svg'
 import Create from '../../src/assets/icons/Create.svg'
 
-const Sidebar = (onCreateClick) => {
+const Sidebar = ({ handleOpen }) => {
   return (
     <aside className={styles.sidebar}>
       <div className={styles.top}>
@@ -43,10 +42,14 @@ const Sidebar = (onCreateClick) => {
             <span>Notification</span>
           </Link>
 
-          <Link to="/create" className={styles.navItem} onClick={onCreateClick}>
+          <button
+            type="button"
+            className={styles.navItemButton}
+            onClick={handleOpen}
+          >
             <img src={Create} alt="Create" />
             <span>Create</span>
-          </Link>
+          </button>
 
           <Link to="/profile" className={styles.navItem}>
             <span className={styles.profileCircle}></span>
