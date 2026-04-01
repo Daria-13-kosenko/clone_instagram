@@ -7,10 +7,12 @@ import {
   getPostById,
   updatePost,
   deletePost,
+  getExplorePosts,
 } from '../controllers/postController.js'
 
 const router = express.Router()
 
+router.get('/explore', authMiddleware, getExplorePosts)
 router.get('/', getAllPost)
 router.get('/:id', getPostById)
 router.post('/', authMiddleware, upload.single('image'), createPost)

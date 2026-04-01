@@ -6,11 +6,8 @@ import ProfilePage from '../pages/ProfilePage/ProfilePage.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
 import ForgotPasswordPage from '../pages/ForgotPasswordPage/ForgotPassword.jsx'
 import AppLayout from '../components/AppLayout/AppLayout.jsx'
-import CreatePostForm from '../components/CreatePostForm/CreatePostForm.jsx'
-import Notifications from '../components/Notification/Notification.jsx'
+import ExplorePage from '../pages/ExplorePage/ExplorePage.jsx'
 
-const SearchPage = () => <div>Search page</div>
-const ExplorePage = () => <div>Explore page</div>
 const MessagePage = () => <div>Message page</div>
 
 const AppRouter = () => {
@@ -38,19 +35,6 @@ const AppRouter = () => {
           user ? (
             <AppLayout>
               <ProfilePage />
-            </AppLayout>
-          ) : (
-            <Navigate to="/login" />
-          )
-        }
-      />
-
-      <Route
-        path="/search"
-        element={
-          user ? (
-            <AppLayout>
-              <SearchPage />
             </AppLayout>
           ) : (
             <Navigate to="/login" />

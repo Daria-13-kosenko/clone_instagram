@@ -90,9 +90,7 @@
   border: 2px solid #262626;
   display: inline-block;
 }
-.active {
-  background: #f2f2f2;
-}
+
 .active span {
   font-weight: 700;
 }

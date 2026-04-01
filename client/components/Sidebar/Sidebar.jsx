@@ -40,7 +40,9 @@ const Sidebar = ({
 
           <Link
             to="/explore"
-            className={styles.navItem}
+            className={`${styles.navItem} ${
+              location.pathname === '/explore' ? styles.active : ''
+            }`}
             onClick={closeAllPanels}
           >
             <img src={Explore} alt="Explore" />

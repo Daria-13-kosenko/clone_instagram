@@ -10,7 +10,7 @@ export const createPost = async (req, res) => {
       })
     }
 
-    const mimeType = req.file.mimeType
+    const mimeType = req.file.mimetype
     const base64Image = `data:${mimeType};base64,${req.file.buffer.toString('base64')}`
 
     const post = await Post.create({
@@ -103,7 +103,7 @@ export const updatePost = async (req, res) => {
     )
     res.status(200).json({
       message: 'Post updated successfully',
-      post: updatePost,
+      post: updatedPost,
     })
   } catch (error) {
     res.status(500).json({ message: error.message })
@@ -134,5 +134,18 @@ export const deletePost = async (req, res) => {
     res.status(500).json({
       message: error.message,
     })
+  }
+}
+
+export const getExplorePosts = async (req, res) => {
+  try {
+    const posts = await Post.find()
+      .populate('author', 'username avatar')
+      .sort({ _id: -1 })
+
+    res.status(200).json(posts)
+  } catch (error) {
+    console.log('Explore: error', error)
+    res.status(500).json({ message: error.message })
   }
 }

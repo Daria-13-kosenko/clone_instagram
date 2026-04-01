@@ -1,0 +1,24 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 123px 89px;
+}
+.card img {
+  width: 316px;
+  height: 316px;
+  transition: 0.2s ease;
+}
+.card:hover img {
+  transform: scale(1.03);
+}
+
+@media (max-width: 1200px) {
+  .grid {
+    column-count: 2;
+  }
+}
+@media (max-width: 700px) {
+  .grid {
+    column-count: 1;
+  }
+}
