@@ -5,19 +5,15 @@ export const searchUsers = async (req, res) => {
     const { query } = req.query
 
     if (!query || !query.trim()) {
-      return res.status(400).json({
-        message: 'Search query is required',
-      })
+      return res.json([])
     }
 
     const users = await User.find({
-      $or: [
-        { username: { $regex: query, $options: 'i' } },
-        { fullName: { $regex: query, $options: 'i' } },
-      ],
-    }).select('-password')
-
-    res.status(200).json(users)
+      username: { $regex: query, $options: 'i' },
+    })
+      .select('username fullName avatar')
+      .limit(10)
+    res.json(users)
   } catch (error) {
     res.status(500).json({
       message: error.message,

@@ -13,6 +13,8 @@ const Sidebar = ({
   handleOpenNotifications,
   isNotificationsOpen,
   closeAllPanels,
+  isSearchOpen,
+  handleOpenSearch,
 }) => {
   return (
     <aside className={styles.sidebar}>
@@ -27,14 +29,14 @@ const Sidebar = ({
             <span>Home</span>
           </Link>
 
-          <Link
-            to="/search"
-            className={styles.navItem}
-            onClick={closeAllPanels}
+          <button
+            type="button"
+            className={`${styles.navItemButton} ${isSearchOpen ? styles.active : ''}`}
+            onClick={handleOpenSearch}
           >
             <img src={Search} alt="Search" />
             <span>Search</span>
-          </Link>
+          </button>
 
           <Link
             to="/explore"
