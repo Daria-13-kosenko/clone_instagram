@@ -7,7 +7,7 @@ export const getMyNotification = async (req, res) => {
     const notification = await Notification.find({ recipient: userId })
       .populate('sender', 'username avatar')
       .populate('post', 'image')
-      .sort({ createAt: -1 })
+      .sort({ createdAt: -1 })
 
     res.json(notification)
   } catch (error) {

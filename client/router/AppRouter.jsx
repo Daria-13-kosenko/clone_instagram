@@ -7,11 +7,11 @@ import { useAuth } from '../context/AuthContext.jsx'
 import ForgotPasswordPage from '../pages/ForgotPasswordPage/ForgotPassword.jsx'
 import AppLayout from '../components/AppLayout/AppLayout.jsx'
 import CreatePostForm from '../components/CreatePostForm/CreatePostForm.jsx'
+import Notifications from '../components/Notification/Notification.jsx'
 
 const SearchPage = () => <div>Search page</div>
 const ExplorePage = () => <div>Explore page</div>
 const MessagePage = () => <div>Message page</div>
-const NotificationPage = () => <div>Notification page</div>
 
 const AppRouter = () => {
   const { user } = useAuth()
@@ -77,19 +77,6 @@ const AppRouter = () => {
           user ? (
             <AppLayout>
               <MessagePage />
-            </AppLayout>
-          ) : (
-            <Navigate to="/login" />
-          )
-        }
-      />
-
-      <Route
-        path="/notification"
-        element={
-          user ? (
-            <AppLayout>
-              <NotificationPage />
             </AppLayout>
           ) : (
             <Navigate to="/login" />

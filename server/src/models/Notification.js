@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 const notificationSchema = new mongoose.Schema({
   recipient: {
     type: mongoose.Schema.Types.ObjectId,
-    res: 'User',
+    ref: 'User',
     required: true,
   },
   sender: {

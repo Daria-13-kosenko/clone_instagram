@@ -23,6 +23,6 @@ app.use('/api/posts', postRoutes)
 app.use('/api/comments', commentRoutes)
 app.use('/api/likes', likeRoutes)
 app.use('/api/search', searchRoutes)
-app.use('/api/notification', notificationRoutes)
+app.use('/api/notifications', notificationRoutes)
 
 export default app

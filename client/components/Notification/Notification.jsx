@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getMyNotifications } from '../../api/notificationApi.js'
+import { getMyNotifications } from '../../src/api/notificationApi.js'
 import styles from './Notification.module.css'
 
 const Notifications = ({ isOpen, onClose }) => {
