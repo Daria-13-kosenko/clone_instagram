@@ -149,3 +149,14 @@ export const getExplorePosts = async (req, res) => {
     res.status(500).json({ message: error.message })
   }
 }
+
+export const getMyPosts = async (req, res) => {
+  try {
+    const posts = await Post.find({ author: req.user.userId })
+      .populate('author', 'username fullName avatar')
+      .sort({ _id: -1 })
+    res.json(posts)
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+}

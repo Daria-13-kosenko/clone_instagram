@@ -36,3 +36,15 @@ export const deletePost = async (postId) => {
   const response = await API.delete(`/posts/${postId}`)
   return response.data
 }
+
+export const getMyPosts = async () => {
+  const token = localStorage.getItem('token')
+
+  const { data } = await axios.get('http://localhost:5000/api/posts/me', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
+  return data
+}

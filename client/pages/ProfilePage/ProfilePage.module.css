@@ -1,0 +1,151 @@
+.profilePage {
+  max-width: 1196px;
+  margin: 0 auto;
+  padding: 30px 20px 60px;
+  box-sizing: border-box;
+}
+.header {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 30px;
+  align-items: start;
+  margin-bottom: 44px;
+}
+.avatarWrapper {
+  display: flex;
+  justify-content: center;
+}
+.avatarRing {
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #f9ce34, #ee2a7b, #6228d7);
+  padding: 4px;
+  box-sizing: border-box;
+}
+.avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #fff;
+  padding: 4px;
+  box-sizing: border-box;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.topRow {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.username {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 400;
+  color: #262626;
+}
+.editButton {
+  height: 32px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 8px;
+  background: #efefef;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+.editButton:hover {
+  background: #e2e2e2;
+}
+.stats {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.stats p {
+  margin: 0;
+  font-size: 16px;
+  color: #262626;
+}
+.bio {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.bio p {
+  margin: 0;
+  font-size: 14px;
+  color: #262626;
+  line-height: 1.4;
+}
+.fullName {
+  font-weight: 600;
+}
+.link {
+  color: #00376b;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+.tabs {
+  border-top: 1px solid #dbdbdb;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.tab {
+  border: none;
+  background: transparent;
+  padding: 18px 20px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #8e8e8e;
+  cursor: pointer;
+  border-top: 1px solid transparent;
+  margin-top: -1;
+}
+.activeTab {
+  color: #262626;
+  border-top-color: #262626;
+}
+.postsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+.postCard {
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  background: #fafafa;
+}
+.postCard img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .header {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .avatarWrapper {
+    justify-content: flex-start;
+  }
+  .avatarRing {
+    width: 100px;
+    height: 100px;
+  }
+  .topRow {
+    flex-wrap: wrap;
+  }
+  .stats {
+    gap: 20px;
+  }
+}
