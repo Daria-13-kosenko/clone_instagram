@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import styles from './ProfilePage.module.css'
 import { getMyProfile } from '../../src/api/userApi.js'
 import { getMyPosts } from '../../src/api/postApi.js'
@@ -42,7 +43,9 @@ const ProfilePage = () => {
         <div className={styles.info}>
           <div className={styles.topRow}>
             <h2 className={styles.username}>{user.username}</h2>
-            <button className={styles.editButton}>Edit profile</button>
+            <Link to="/profile/edit" className={styles.editButton}>
+              Edit profile
+            </Link>
           </div>
 
           <div className={styles.stats}>
