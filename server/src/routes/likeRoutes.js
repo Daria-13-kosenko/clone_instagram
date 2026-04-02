@@ -8,7 +8,7 @@ import {
 
 const router = express.Router()
 
-router.get('/:postId', getPostLikes)
+router.get('/:postId', authMiddleware, getPostLikes)
 router.post('/:postId', authMiddleware, likePost)
 router.delete('/:postId', authMiddleware, unlikePost)
 

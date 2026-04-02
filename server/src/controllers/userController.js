@@ -1,70 +1,35 @@
 import User from '../models/User.js'
 
-export const getMyProfile = async (req, res) => {
-  try {
-    const user = await User.findById(req.user.userId).select('-password')
+export const getMyProfile = async () => {
+  const token = localStorage.getItem('token')
 
-    if (!user) {
-      return res.status(404).json({
-        message: 'User not found',
-      })
-    }
+  const { data } = await axios.get('http://localhost:5000/api/users/me', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
 
-    res.status(200).json(user)
-  } catch (error) {
-    res.status(500).json({
-      message: error.message,
-    })
-  }
+  return data
 }
 
 export const updateMyProfile = async (req, res) => {
   try {
-    const { username, fullName, bio } = req.body
-
     const user = await User.findById(req.user.userId)
 
     if (!user) {
-      return res.status(404).json({
-        message: 'User not found',
-      })
+      return res.status(404).json({ message: 'User not found' })
     }
 
-    if (username && username !== user.username) {
-      const existingUsername = await User.findOne({ username })
+    user.username = req.body.username ?? user.username
+    user.website = req.body.website ?? user.website
+    user.bio = req.body.bio ?? user.bio
+    user.avatar = req.body.avatar ?? user.avatar
 
-      if (existingUsername) {
-        return res.status(400).json({
-          message: 'Username already taken',
-        })
-      }
-      user.username = username
-    }
-
-    if (fullName !== undefined) {
-      user.fullName = fullName
-    }
-
-    if (bio !== undefined) {
-      user.bio = bio
-    }
     await user.save()
 
-    res.status(200).json({
-      message: 'Profile updated successfully',
-      user: {
-        id: user._id,
-        username: user.username,
-        fullName: user.fullName,
-        email: user.email,
-        avatar: user.avatar,
-        bio: user.bio,
-      },
-    })
+    res.json(user)
   } catch (error) {
-    res.status(500).json({
-      message: error.message,
-    })
+    res.status(500).json({ message: error.message })
   }
 }
 

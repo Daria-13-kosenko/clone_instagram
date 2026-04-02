@@ -7,6 +7,7 @@ import { useAuth } from '../context/AuthContext.jsx'
 import ForgotPasswordPage from '../pages/ForgotPasswordPage/ForgotPassword.jsx'
 import AppLayout from '../components/AppLayout/AppLayout.jsx'
 import ExplorePage from '../pages/ExplorePage/ExplorePage.jsx'
+import EditProfile from '../pages/EditProfilePage/EditProfile.jsx'
 
 const MessagePage = () => <div>Message page</div>
 
@@ -61,6 +62,18 @@ const AppRouter = () => {
           user ? (
             <AppLayout>
               <MessagePage />
+            </AppLayout>
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
+      />
+      <Route
+        path="/profile/edit"
+        element={
+          user ? (
+            <AppLayout>
+              <EditProfile />
             </AppLayout>
           ) : (
             <Navigate to="/login" />
