@@ -1,19 +1,48 @@
-import { useAuth } from '../../context/AuthContext'
+import { useEffect, useState } from 'react'
+import styles from './ProfilePage.module.css'
+import { getMyProfile } from '../../src/api/userApi.js'
+import { getMyPosts } from '../../src/api/postApi.js'
 
 const ProfilePage = () => {
-  const { user, loading } = useAuth()
+  const [user, setUser] = useState(null)
+  const [posts, setPosts] = useState([])
 
-  if (loading) return <p>Loading...</p>
-  if (!user) return <p>You are not authorized</p>
+  useEffect(() => {
+    const loadProfile = async () => {
+      try {
+        const profileData = await getMyProfile()
+        const postsData = await getMyPosts()
+
+        setUser(profileData)
+        setPosts(Array.isArray(postsData) ? postsData : postsData.posts || [])
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    loadProfile()
+  }, [])
+
+  if (!user) {
+    return
+  }
 
   return (
-    <div>
-      <h1>Profile</h1>
-      <p>Username: {user.username}</p>
-      <p>Fullname: {user.fullName}</p>
-      <p>Email: {user.email}</p>
-      <p>Bio: {user.bio}</p>
-      {user.avatar && <img src={user.avatar} alt="avatar" width="150" />}
+    <div className={styles.ProfilePage}>
+      <div className={styles.header}>
+        <div className={avatarWrapper}>
+          <div className={styles.avatarRing}>
+            <img
+              src={user.avatar || 'http://via.placeholder.com/150'}
+              alt={user.username}
+              className={styles.avatar}
+            />
+          </div>
+        </div>
+
+        <div className={styles.info}>
+          <div className></div>
+        </div>
+      </div>
     </div>
   )
 }

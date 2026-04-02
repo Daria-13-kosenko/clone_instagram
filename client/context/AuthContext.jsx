@@ -5,16 +5,13 @@ const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
-  const [loading, setLoading] = useState(true)
 
   const fetchProfile = async () => {
     try {
       const profile = await getMyProfile()
       setUser(profile)
     } catch (error) {
-      setUser(null)
-    } finally {
-      setLoading(false)
+      setUser(error)
     }
   }
 
@@ -23,8 +20,6 @@ export const AuthProvider = ({ children }) => {
 
     if (token) {
       fetchProfile()
-    } else {
-      setLoading(false)
     }
   }, [])
 
@@ -39,7 +34,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, setUser, loading, login, logout }}>
+    <AuthContext.Provider value={{ user, setUser, login, logout }}>
       {children}
     </AuthContext.Provider>
   )
