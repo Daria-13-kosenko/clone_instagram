@@ -1,15 +1,18 @@
 import User from '../models/User.js'
 
-export const getMyProfile = async () => {
-  const token = localStorage.getItem('token')
+export const getMyProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.userId).select('-password')
 
-  const { data } = await axios.get('http://localhost:5000/api/users/me', {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' })
+    }
 
-  return data
+    res.json(user)
+  } catch (error) {
+    console.error('getMyProfile error:', error)
+    res.status(500).json({ message: error.message })
+  }
 }
 
 export const updateMyProfile = async (req, res) => {
