@@ -3,7 +3,7 @@ import { createComment, getCommentsByPost } from '../../src/api/commentApi'
 import { getPostLikes, likePost, unlikePost } from '../../src/api/likeApi'
 import styles from './PostCard.module.css'
 
-const PostCard = ({ post }) => {
+const PostCard = ({ post, onOpenModal }) => {
   const [likesCount, setLikesCount] = useState(0)
   const [comments, setComments] = useState([])
   const [commentText, setCommentText] = useState('')
@@ -34,7 +34,9 @@ const PostCard = ({ post }) => {
     }
   }
 
-  const handleLikeToggle = async () => {
+  const handleLikeToggle = async (e) => {
+    e.stopPropagation()
+
     try {
       if (isLiked) {
         const data = await unlikePost(post._id)
@@ -52,6 +54,7 @@ const PostCard = ({ post }) => {
 
   const handleCommentSubmit = async (e) => {
     e.preventDefault()
+    e.stopPropagation()
 
     if (!commentText.trim()) return
 
