@@ -76,7 +76,12 @@ const PostCard = ({ post, onOpenModal }) => {
         </p>
       </div>
 
-      <img src={post.image} alt={post.caption} className={styles.image} />
+      <img
+        src={post.image}
+        alt={post.caption}
+        className={styles.image}
+        onClick={() => onOpenModal?.(post)}
+      />
 
       <div className={styles.actions}>
         <button type="button" onClick={handleLikeToggle}>

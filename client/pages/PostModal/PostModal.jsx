@@ -13,12 +13,13 @@ const PostModal = ({
   const [showMenu, setShowMenu] = useState(false)
   const menuRef = useRef(null)
 
+  const authorId = post?.author._id || post?.author
+  const currentUserId = currentUser?._id || currentUser?.userId
+
   const isOwner =
-    currentUser &&
-    post?.author &&
-    (currentUser._id === post.author._id ||
-      currentUser._id === post.author ||
-      currentUser.userId === post.author._id)
+    Boolean(currentUserId) &&
+    Boolean(authorId) &&
+    String(currentUserId) === String(authorId)
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -62,11 +63,15 @@ const PostModal = ({
         <div className={styles.contentSide}>
           <div className={styles.header}>
             <div className={styles.authorInfo}>
-              <img
-                src={post.author?.avatar || 'https://via.placeholder.com/32'}
-                alt="avatar"
-                className={styles.avatar}
-              />
+              {post.author?.avatar ? (
+                <img
+                  src={post.author.avatar}
+                  alt="avatar"
+                  className={styles.avatar}
+                />
+              ) : (
+                <div className={styles.avatarPlaceholder}>U</div>
+              )}
               <span className={styles.username}>
                 {post.author?.username || 'user'}
               </span>
