@@ -11,14 +11,30 @@ const Notifications = ({ isOpen, onClose }) => {
     const loadNotifications = async () => {
       try {
         const data = await getMyNotifications()
-        setNotifications(data)
+        setNotifications(Array.isArray(data) ? data : data.notifications || [])
       } catch (error) {
         console.log(error)
+        setNotifications([])
       }
     }
 
     loadNotifications()
   }, [isOpen])
+
+  useEffect(() => {
+    if (!isOpen) return
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        onClose()
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isOpen, onClose])
 
   if (!isOpen) return null
 
@@ -34,8 +50,8 @@ const Notifications = ({ isOpen, onClose }) => {
     if (item.type === 'comment') {
       return (
         <>
-          <strong>{item.sender?.username}</strong> commented: "
-          {item.commentText}"
+          <strong>{item.sender?.username || 'User'}</strong> commented: "
+          {item.comment?.text || item.commentText || 'Nice post'}"
         </>
       )
     }
@@ -43,12 +59,30 @@ const Notifications = ({ isOpen, onClose }) => {
     if (item.type === 'follow') {
       return (
         <>
-          <strong>{item.sender?.username}</strong> started following you.
+          <strong>{item.sender?.username || 'User'}</strong> started following
+          you.
         </>
       )
     }
 
     return null
+  }
+
+  const renderAvatar = (item) => {
+    if (item.sender?.avatar) {
+      return (
+        <img
+          src={item.sender.avatar}
+          alt={item.sender?.username || 'user'}
+          className={styles.avatar}
+        />
+      )
+    }
+    return (
+      <div className={styles.avatarPlaceholder}>
+        {item.sender?.username?.charAt(0)?.toUpperCase() || 'U'}
+      </div>
+    )
   }
 
   return (
@@ -64,11 +98,7 @@ const Notifications = ({ isOpen, onClose }) => {
           <div className={styles.list}>
             {notifications.map((item) => (
               <div key={item._id} className={styles.item}>
-                <img
-                  src={item.sender?.avatar || 'https://via.placeholder.com/44'}
-                  alt={item.sender?.username || 'user'}
-                  className={styles.avatar}
-                />
+                {renderAvatar(item)}
 
                 <div className={styles.text}>
                   <p>{renderText(item)}</p>

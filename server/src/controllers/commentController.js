@@ -1,6 +1,7 @@
 import Comment from '../models/Comment.js'
 import Post from '../models/Post.js'
 import mongoose from 'mongoose'
+import Notification from '../models/Notification.js'
 
 export const createComment = async (req, res) => {
   try {
@@ -31,9 +32,17 @@ export const createComment = async (req, res) => {
       'author',
       'username avatar',
     )
+    if (String(post.author) !== String(userId)) {
+      await Notification.create({
+        recipient: post.author,
+        sender: userId,
+        type: 'comment',
+        post: postId,
+        comment: comment._id,
+      })
+    }
 
     res.status(201).json({
-      message: 'Comment created successfully',
       comment: populatedComment,
     })
   } catch (error) {
