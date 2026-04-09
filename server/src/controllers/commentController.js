@@ -1,29 +1,24 @@
 import Comment from '../models/Comment.js'
 import Post from '../models/Post.js'
-import Notification from '../models/Notification.js'
+import mongoose from 'mongoose'
 
 export const createComment = async (req, res) => {
   try {
-    const userId = req.user.id
-    const { text } = req.body
     const { postId } = req.params
+    const { text } = req.body
+    const userId = req.user.userId
+
+    if (!mongoose.Types.ObjectId.isValid(postId)) {
+      return res.status(400).json({ message: 'Invalid post ID' })
+    }
 
     if (!text || !text.trim()) {
-      return res.status(400).json({
-        message: 'Comment text is required',
-      })
+      return res.status(400).json({ message: 'Comment text is required' })
     }
 
     const post = await Post.findById(postId)
-
-    if (post.author.toString() !== userId) {
-      await Notification.create({
-        recipient: post.author,
-        sender: userId,
-        type: 'comment',
-        post: postId,
-        commentText: text,
-      })
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' })
     }
 
     const comment = await Comment.create({
@@ -34,17 +29,16 @@ export const createComment = async (req, res) => {
 
     const populatedComment = await Comment.findById(comment._id).populate(
       'author',
-      'username',
+      'username avatar',
     )
 
     res.status(201).json({
-      message: 'Comment added successfully',
+      message: 'Comment created successfully',
       comment: populatedComment,
     })
   } catch (error) {
-    res.status(500).json({
-      message: error.message,
-    })
+    console.error('createComment error:', error)
+    res.status(500).json({ message: error.message })
   }
 }
 
