@@ -1,5 +1,8 @@
 import express from 'express'
 import cors from 'cors'
+import { Server } from 'socket.io'
+import http from 'http'
+
 import authRoutes from './routes/authRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import postRoutes from './routes/postRoutes.js'
@@ -8,18 +11,22 @@ import likeRoutes from './routes/likeRoutes.js'
 import searchRoutes from './routes/searchRoutes.js'
 import notificationRoutes from './routes/notificationRoutes.js'
 import messageRoutes from './routes/messageRoutes.js'
-import { Server } from 'socket.io'
 
-const io = new Server(Server, {
+const app = express()
+const server = http.createServer(app)
+
+const io = new Server(server, {
   cors: {
     origin: 'http://localhost:5173',
-    credentials: true,
+    methods: ['GET', 'POST'],
   },
 })
 
 const onlineUsers = new Map()
 
 io.on('connection', (socket) => {
+  console.log('User connected:', socket.id)
+
   socket.on('join', (userId) => {
     onlineUsers.set(userId, socket.id)
   })
@@ -39,10 +46,9 @@ io.on('connection', (socket) => {
         break
       }
     }
+    console.log('User disconnected:', socket.id)
   })
 })
-
-const app = express()
 
 app.use(cors())
 app.use(express.json())
@@ -60,4 +66,4 @@ app.use('/api/search', searchRoutes)
 app.use('/api/notifications', notificationRoutes)
 app.use('/api/messages', messageRoutes)
 
-export default app
+export { app, server, io }
