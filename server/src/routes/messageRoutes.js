@@ -12,12 +12,12 @@ const router = express.Router()
 router.get('/conversations', authMiddleware, getMyConversation)
 router.post('/conversations', authMiddleware, createOrGetConversation)
 router.get(
-  '/conversations/:convercationId/messages',
+  '/conversations/:conversationId/messages',
   authMiddleware,
   getMessageByConvercation,
 )
 router.post(
-  '/conversations/conversationId/messages',
+  '/conversations/:conversationId/messages',
   authMiddleware,
   sendMessage,
 )

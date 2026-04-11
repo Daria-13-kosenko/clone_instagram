@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import styles from './PostModal.module.css'
+import { useNavigate } from 'react-router-dom'
 
 const PostModal = ({
   post,
@@ -12,6 +13,7 @@ const PostModal = ({
 }) => {
   const [showMenu, setShowMenu] = useState(false)
   const menuRef = useRef(null)
+  const navigate = useNavigate()
 
   const authorId = post?.author._id || post?.author
   const currentUserId = currentUser?._id || currentUser?.userId
@@ -45,6 +47,12 @@ const PostModal = ({
 
   if (!post) return null
 
+  const handleOpenAuthorProfile = (e) => {
+    e.stopPropagation()
+    const authorId = post?.author?._id || post?.author
+    if (!authorId) return
+    navigate(`/profile/${authorId}`)
+  }
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
@@ -62,16 +70,22 @@ const PostModal = ({
 
         <div className={styles.contentSide}>
           <div className={styles.header}>
-            <div className={styles.authorInfo}>
+            <div
+              className={styles.authorInfo}
+              onClick={handleOpenAuthorProfile}
+            >
               {post.author?.avatar ? (
                 <img
                   src={post.author.avatar}
-                  alt="avatar"
+                  alt={post.author?.username || 'user'}
                   className={styles.avatar}
                 />
               ) : (
-                <div className={styles.avatarPlaceholder}>U</div>
+                <div className={styles.avatarPlaceholder}>
+                  {post.author?.username?.charAt(0)?.toUpperCase() || 'U'}
+                </div>
               )}
+
               <span className={styles.username}>
                 {post.author?.username || 'user'}
               </span>

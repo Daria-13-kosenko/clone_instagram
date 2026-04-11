@@ -33,16 +33,8 @@ const HomePage = () => {
   }
 
   useEffect(() => {
-    const loadPosts = async () => {
-      try {
-        const data = await getAllPosts()
-        setPosts(data)
-      } catch (error) {
-        console.error('Error loading posts:', error)
-      }
-    }
-
     loadPosts()
+    loadCurrentUser()
   }, [])
 
   const handlePostCreated = (newPost) => {

@@ -2,12 +2,15 @@ import { useEffect, useState } from 'react'
 import { createComment, getCommentsByPost } from '../../src/api/commentApi'
 import { getPostLikes, likePost, unlikePost } from '../../src/api/likeApi'
 import styles from './PostCard.module.css'
+import { useNavigate } from 'react-router-dom'
 
 const PostCard = ({ post, onOpenModal }) => {
   const [likesCount, setLikesCount] = useState(0)
   const [comments, setComments] = useState([])
   const [commentText, setCommentText] = useState('')
   const [isLiked, setIsLiked] = useState(false)
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     loadLikes()
@@ -66,14 +69,31 @@ const PostCard = ({ post, onOpenModal }) => {
       console.log(error)
     }
   }
-
+  const handleOpenUserProfile = (e) => {
+    e.stopPropagation()
+    if (!post.author?._id) return
+    navigate(`/profile/${post.author._id}`)
+  }
   return (
     <article className={styles.card}>
       <div className={styles.header}>
-        <div className={styles.avatar}></div>
-        <p>
-          <strong>{post.author?.username}</strong>
-        </p>
+        <div className={styles.userInfo} onClick={handleOpenUserProfile}>
+          {post.author?.avatar ? (
+            <img
+              src={post.author.avatar}
+              alt={post.author?.username || 'user'}
+              className={styles.avatar}
+            />
+          ) : (
+            <div className={styles.avatarPlaceholder}>
+              {post.author?.username?.charAt(0)?.toUpperCase() || 'U'}
+            </div>
+          )}
+
+          <p className={styles.username}>
+            <strong>{post.author?.username}</strong>
+          </p>
+        </div>
       </div>
 
       <img

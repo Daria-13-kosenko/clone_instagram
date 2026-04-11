@@ -34,11 +34,10 @@ export const getMessageByConvercation = async (req, res) => {
       return res.status(400).json({ message: 'Invalid conversation id' })
     }
 
-    const message = await Message.find(
-      { conversation: conversationId }
-        .populate('sender', 'username avatar')
-        .sort({ createdAt: 1 }),
-    )
+    const message = await Message.find({ conversation: conversationId })
+      .populate('sender', 'username avatar')
+      .sort({ createdAt: 1 })
+
     res.json(message)
   } catch (error) {
     console.error('getMessageByConvercation error:', error)
@@ -55,10 +54,9 @@ export const createOrGetConversation = async (req, res) => {
       return res.status(400).json({ message: 'participantId is required' })
     }
 
-    let conversation = await getMessageByConvercation
-      .findOne({
-        participants: { $all: [userId, participantId], $size: 2 },
-      })
+    let conversation = await Conversation.findOne({
+      participants: { $all: [userId, participantId], $size: 2 },
+    })
       .populate('participants', 'username avatar')
       .populate('lastMessage')
 
@@ -66,13 +64,15 @@ export const createOrGetConversation = async (req, res) => {
       conversation = await Conversation.create({
         participants: [userId, participantId],
       })
+
       conversation = await Conversation.findById(conversation._id)
         .populate('participants', 'username avatar')
         .populate('lastMessage')
     }
+
     res.status(200).json(conversation)
   } catch (error) {
-    console.error('createOrGetConversation error: ', error)
+    console.error('createOrGetConversation error:', error)
     res.status(500).json({ message: error.message })
   }
 }

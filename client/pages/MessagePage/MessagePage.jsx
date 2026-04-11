@@ -45,7 +45,6 @@ const MessagePage = () => {
       try {
         const data = await getMessageByConversation(selectedConversation._id)
         setMessages(data)
-        socket.emit('joinConversation', selectedConversation._id)
       } catch (error) {
         console.log(error)
       }

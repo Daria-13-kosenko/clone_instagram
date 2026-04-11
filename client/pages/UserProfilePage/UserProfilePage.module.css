@@ -3,3 +3,139 @@
   margin: 0 auto;
   padding: 30px 20px 60px;
 }
+
+.loading {
+  padding: 40px;
+  font-size: 18px;
+}
+
+.profileHeader {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.avatarWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.avatar {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatarPlaceholder {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: #efefef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  font-weight: 700;
+  color: #555;
+}
+
+.profileInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.topRow {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.username {
+  font-size: 28px;
+  font-weight: 400;
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.followBtn,
+.followingBtn,
+.messageBtn {
+  border: none;
+  border-radius: 8px;
+  height: 36px;
+  padding: 0 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.followBtn {
+  background: #0095f6;
+  color: #fff;
+}
+
+.followingBtn,
+.messageBtn {
+  background: #efefef;
+  color: #111;
+}
+
+.stats {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.stats p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.bioBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.name,
+.bio {
+  margin: 0;
+}
+
+.name {
+  font-weight: 700;
+}
+
+.website {
+  color: #00376b;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.postsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+
+.postCard {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  cursor: pointer;
+  background: #f3f3f3;
+}
+
+.postImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}

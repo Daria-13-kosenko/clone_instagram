@@ -121,7 +121,7 @@ const UserProfilePage = () => {
       <div className={styles.page}>
         <div className={styles.profileHeader}>
           <div className={styles.avatarWrapper}>
-            {profileUser.avatar ? (
+            {profileUser?.avatar ? (
               <img
                 src={profileUser.avatar}
                 alt={profileUser.username}
@@ -129,7 +129,7 @@ const UserProfilePage = () => {
               />
             ) : (
               <div className={styles.avatarPlaceholder}>
-                {profileUser.username?.charAt(0)?.toUpperCase() || 'U'}
+                {profileUser?.username?.charAt(0)?.toUpperCase() || 'U'}
               </div>
             )}
           </div>
