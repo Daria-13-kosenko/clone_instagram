@@ -14,9 +14,9 @@ const NotFoundPage = () => {
             <p className={styles.text}>
               We're sorry, but the page you're looking for doesn't seem to
               exist.
-            </p>
-            <p className={styles.text}>
+              <br />
               If you typed the URL manually, please double-check the spelling.
+              <br />
               If you clicked on a link, it may be outdated or broken.
             </p>
           </div>
