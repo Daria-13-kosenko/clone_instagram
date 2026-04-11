@@ -12,7 +12,13 @@ export const getMyProfile = async () => {
 
   return data
 }
-export const updateMyProfile = async (userData) => {
-  const response = await API.put('/users/me', userData)
-  return response.data
+export const updateMyProfile = async () => {
+  const token = localStorage.getItem('token')
+
+  const { data } = await axios.get('http://localhost:5000/api/users/me', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  return data
 }
