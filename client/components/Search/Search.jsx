@@ -71,9 +71,12 @@ const Search = ({ isOpen, onClose }) => {
                 recent.map((user) => (
                   <div key={user._id} className={styles.item}>
                     <img
-                      src={user.avatar || 'https://via.placeholder.com/44'}
+                      src={user.avatar || '/default-avatar.png'}
                       alt={user.username}
                       className={styles.avatar}
+                      onError={(e) => {
+                        e.target.src = '/default-avatar.png'
+                      }}
                     />
                     <div className={styles.text}>
                       <p className={styles.username}>{user.username}</p>
@@ -95,9 +98,12 @@ const Search = ({ isOpen, onClose }) => {
                   onClick={() => handleAddRecent(user)}
                 >
                   <img
-                    src={user.avatar || 'https://via.placeholder.com/44'}
+                    src={user.avatar || '/default-avatar.png'}
                     alt={user.username}
                     className={styles.avatar}
+                    onError={(e) => {
+                      e.target.src = '/default-avatar.png'
+                    }}
                   />
                   <div className={styles.text}>
                     <p className={styles.username}>{user.username}</p>

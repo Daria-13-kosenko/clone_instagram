@@ -3,16 +3,11 @@ import axios from 'axios'
 export const getAllPosts = async () => {
   const token = localStorage.getItem('token')
 
-  const { data } = await axios.post(
-    'http://localhost:5000/api/posts',
-    formData,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'multipart/form-data',
-      },
+  const { data } = await axios.get('http://localhost:5000/api/posts', {
+    headers: {
+      Authorization: `Bearer ${token}`,
     },
-  )
+  })
 
   return data
 }
@@ -35,17 +30,34 @@ export const createPost = async (formData) => {
 }
 
 export const updatePost = async (postId, formData) => {
-  const response = await API.put(`/put/${postId}`, formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  })
-  return response.data
-}
+  const token = localStorage.getItem('token')
 
+  const { data } = await axios.put(
+    `http://localhost:5000/api/posts/${postId}`,
+    formData,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data',
+      },
+    },
+  )
+
+  return data
+}
 export const deletePost = async (postId) => {
-  const response = await API.delete(`/posts/${postId}`)
-  return response.data
+  const token = localStorage.getItem('token')
+
+  const { data } = await axios.delete(
+    `http://localhost:5000/api/posts/${postId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  )
+
+  return data
 }
 
 export const getMyPosts = async () => {

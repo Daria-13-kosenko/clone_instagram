@@ -13,6 +13,22 @@ const userSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    website: {
+      type: String,
+      default: '',
+    },
+    followers: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
+    following: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
     email: {
       type: String,
       required: true,

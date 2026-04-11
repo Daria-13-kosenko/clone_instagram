@@ -39,7 +39,7 @@ export const followUser = async (userId) => {
   return data
 }
 
-export default unfollowUser = async (userId) => {
+export const unfollowUser = async (userId) => {
   const { data } = await axios.delete(
     `http://localhost:5000/api/users/${userId}/follow`,
     {
