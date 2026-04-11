@@ -8,8 +8,7 @@ import ForgotPasswordPage from '../pages/ForgotPasswordPage/ForgotPassword.jsx'
 import AppLayout from '../components/AppLayout/AppLayout.jsx'
 import ExplorePage from '../pages/ExplorePage/ExplorePage.jsx'
 import EditProfile from '../pages/EditProfilePage/EditProfile.jsx'
-
-const MessagePage = () => <div>Message page</div>
+import MessagePage from '../pages/MessagePage/MessagePage.jsx'
 
 const AppRouter = () => {
   const { user } = useAuth()
