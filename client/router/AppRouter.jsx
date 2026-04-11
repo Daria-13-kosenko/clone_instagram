@@ -10,6 +10,7 @@ import ExplorePage from '../pages/ExplorePage/ExplorePage.jsx'
 import EditProfile from '../pages/EditProfilePage/EditProfile.jsx'
 import MessagePage from '../pages/MessagePage/MessagePage.jsx'
 import UserProfilePage from '../pages/UserProfilePage/UserProfilePage.jsx'
+import NotFoundPage from '../pages/NotFoundPage/NotFoundPage.jsx'
 
 const AppRouter = () => {
   const { user } = useAuth()
@@ -81,6 +82,7 @@ const AppRouter = () => {
         }
       />
       <Route path="/profile/:userId" element={<UserProfilePage />} />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )
 }
