@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import Conversation from '../models/Conversation.js'
 import Message from '../models/Message.js'
+import Notification from '../models/Notification.js'
 
 export const getMyConversation = async (req, res) => {
   try {
@@ -109,7 +110,19 @@ export const sendMessage = async (req, res) => {
       'sender',
       'username avatar',
     )
+    const recipientId = conversation.participants.find(
+      (id) => String(id) !== String(userId),
+    )
 
+    if (recipientId) {
+      await Notification.create({
+        recipient: recipientId,
+        sender: userId,
+        type: 'message',
+        conversation: conversationId,
+        text,
+      })
+    }
     res.status(201).json(populatedMessage)
   } catch (error) {
     console.error('sendMessage error:', error)

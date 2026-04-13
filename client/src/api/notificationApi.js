@@ -11,3 +11,18 @@ export const getMyNotifications = async () => {
 
   return data
 }
+
+export const markNotificationsAsRead = async () => {
+  const token = localStorage.getItem('token')
+
+  const { data } = await axios.patch(
+    'http://localhost:5000/api/notifications/read',
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  )
+  return data
+}

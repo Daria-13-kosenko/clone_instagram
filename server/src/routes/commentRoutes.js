@@ -7,7 +7,7 @@ import {
 
 const router = express.Router()
 
-router.get('/:postId', getCommentByPost)
+router.get('/:postId', authMiddleware, getCommentByPost)
 router.post('/:postId', authMiddleware, createComment)
 
 export default router

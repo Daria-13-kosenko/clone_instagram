@@ -31,13 +31,18 @@ io.on('connection', (socket) => {
   socket.on('join', (userId) => {
     onlineUsers.set(userId, socket.id)
   })
-
+  socket.on('join', (userId) => {
+    socket.join(userId)
+  })
   socket.on('joinConversation', (conversationId) => {
     socket.join(conversationId)
   })
 
   socket.on('sendMessage', (message) => {
     io.to(message.conversation).emit('newMessage', message)
+    if (message.recipientId) {
+      io.to(message.recipientId).emit('newNotification')
+    }
   })
 
   socket.on('disconnect', () => {

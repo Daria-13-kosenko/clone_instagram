@@ -6,17 +6,19 @@ import Notification from '../models/Notification.js'
 export const getPostLikes = async (req, res) => {
   try {
     const { postId } = req.params
+    const userId = req.user.userId
 
     if (!mongoose.Types.ObjectId.isValid(postId)) {
       return res.status(400).json({ message: 'Invalid post ID' })
     }
 
-    const likes = await Like.find({ post: postId }).populate(
-      'user',
-      'username avatar',
-    )
+    const likes = await Like.find({ post: postId })
+    const isLiked = likes.some((like) => String(like.user) === String(userId))
 
-    res.json(likes)
+    res.json({
+      likesCount: likes.length,
+      isLiked,
+    })
   } catch (error) {
     console.error('getPostLikes error:', error)
     res.status(500).json({ message: error.message })
@@ -41,7 +43,6 @@ export const likePost = async (req, res) => {
     if (existingLike) {
       const likesCount = await Like.countDocuments({ post: postId })
       return res.status(200).json({
-        message: 'Post already liked',
         likesCount,
         isLiked: true,
       })
@@ -79,16 +80,18 @@ export const unlikePost = async (req, res) => {
       return res.status(400).json({ message: 'Invalid post ID' })
     }
 
-    const like = await Like.findOneAndDelete({
+    await Like.findOneAndDelete({
       user: userId,
       post: postId,
     })
 
-    if (!like) {
-      return res.status(404).json({ message: 'Like not found' })
-    }
+    const likesCount = await Like.countDocuments({ post: postId })
 
-    res.json({ message: 'Like removed successfully' })
+    res.json({
+      message: 'Like removed successfully',
+      likesCount,
+      isLiked: false,
+    })
   } catch (error) {
     console.error('unlikePost error:', error)
     res.status(500).json({ message: error.message })

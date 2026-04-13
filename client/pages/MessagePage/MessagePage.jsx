@@ -39,6 +39,11 @@ const MessagePage = () => {
   }, [])
 
   useEffect(() => {
+    if (!currentUser?._id) return
+    socket.emit('join', currentUser._id)
+  }, [currentUser])
+
+  useEffect(() => {
     if (!selectedConversation?._id) return
 
     const loadMessages = async () => {

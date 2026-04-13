@@ -29,6 +29,7 @@ const Notifications = ({ isOpen, onClose }) => {
         onClose()
       }
     }
+
     document.addEventListener('keydown', handleKeyDown)
 
     return () => {
@@ -42,7 +43,7 @@ const Notifications = ({ isOpen, onClose }) => {
     if (item.type === 'like') {
       return (
         <>
-          <strong>{item.sender?.username}</strong> liked your photo.
+          <strong>{item.sender?.username || 'User'}</strong> liked your photo.
         </>
       )
     }
@@ -51,7 +52,7 @@ const Notifications = ({ isOpen, onClose }) => {
       return (
         <>
           <strong>{item.sender?.username || 'User'}</strong> commented: "
-          {item.comment?.text || item.commentText || 'Nice post'}"
+          {item.comment?.text || item.text || 'Nice post'}"
         </>
       )
     }
@@ -61,6 +62,15 @@ const Notifications = ({ isOpen, onClose }) => {
         <>
           <strong>{item.sender?.username || 'User'}</strong> started following
           you.
+        </>
+      )
+    }
+
+    if (item.type === 'message') {
+      return (
+        <>
+          <strong>{item.sender?.username || 'User'}</strong> sent you a message:
+          "{item.text || 'New message'}"
         </>
       )
     }
@@ -78,6 +88,7 @@ const Notifications = ({ isOpen, onClose }) => {
         />
       )
     }
+
     return (
       <div className={styles.avatarPlaceholder}>
         {item.sender?.username?.charAt(0)?.toUpperCase() || 'U'}
