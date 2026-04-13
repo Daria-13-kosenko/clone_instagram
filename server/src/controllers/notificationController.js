@@ -2,7 +2,7 @@ import Notification from '../models/Notification.js'
 
 export const getMyNotifications = async (req, res) => {
   try {
-    const userId = req.user.id
+    const userId = req.user.userId
 
     const notification = await Notification.find({ recipient: userId })
       .populate('sender', 'username avatar')
