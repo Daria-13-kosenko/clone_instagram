@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import { searchUsers } from '../../src/api/searchApi.js'
 import styles from './Search.module.css'
+import { useNavigate } from 'react-router-dom'
 
 const Search = ({ isOpen, onClose }) => {
   const [query, setQuery] = useState('')
   const [results, setResults] = useState([])
   const [recent, setRecent] = useState([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     const savedRecent = JSON.parse(localStorage.getItem('recentSearches')) || []
@@ -41,6 +43,12 @@ const Search = ({ isOpen, onClose }) => {
     localStorage.setItem('recentSearches', JSON.stringify(updated))
   }
 
+  const handleOpenUserProfile = (user) => {
+    if (!user?._id) return
+    handleAddRecent(user)
+    onClose?.()
+    navigate(`/profile/${user._id}`)
+  }
   return (
     <>
       <div className={styles.overlay} onClick={onClose}></div>
@@ -69,7 +77,11 @@ const Search = ({ isOpen, onClose }) => {
                 <p className={styles.empty}>No recent searches.</p>
               ) : (
                 recent.map((user) => (
-                  <div key={user._id} className={styles.item}>
+                  <div
+                    key={user._id}
+                    className={styles.item}
+                    onClick={() => handleOpenUserProfile(user)}
+                  >
                     <img
                       src={user.avatar || '/default-avatar.png'}
                       alt={user.username}
@@ -95,7 +107,7 @@ const Search = ({ isOpen, onClose }) => {
                 <div
                   key={user._id}
                   className={styles.item}
-                  onClick={() => handleAddRecent(user)}
+                  onClick={() => handleOpenUserProfile(user)}
                 >
                   <img
                     src={user.avatar || '/default-avatar.png'}
