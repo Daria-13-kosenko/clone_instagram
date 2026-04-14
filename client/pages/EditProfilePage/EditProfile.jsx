@@ -89,7 +89,9 @@ const EditProfile = () => {
     e.preventDefault()
 
     try {
-      await updateMyProfile(formData)
+      const updatedUser = await updateMyProfile(formData)
+      localStorage.setItem('user', JSON.stringify(updatedUser))
+
       alert('Profile updated successfully')
     } catch (error) {
       console.log(error)

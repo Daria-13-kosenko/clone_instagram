@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import styles from './Sidebar.module.css'
 import Ichra from '../../src/assets/img/Ichra.svg'
 import Home from '../../src/assets/icons/Home.svg'
@@ -7,6 +7,7 @@ import Explore from '../../src/assets/icons/Explore.svg'
 import Message from '../../src/assets/icons/Messenger.svg'
 import Notification from '../../src/assets/icons/Notification.svg'
 import Create from '../../src/assets/icons/Create.svg'
+import { useEffect, useState } from 'react'
 
 const Sidebar = ({
   handleOpen,
@@ -16,6 +17,36 @@ const Sidebar = ({
   isSearchOpen,
   handleOpenSearch,
 }) => {
+  const [user, setUser] = useState(null)
+  const location = useLocation()
+
+  useEffect(() => {
+    const loadUser = () => {
+      try {
+        const storedUser = localStorage.getItem('user')
+
+        if (storedUser) {
+          setUser(JSON.parse(storedUser))
+        } else {
+          setUser(null)
+        }
+      } catch (error) {
+        console.log(error)
+        setUser(null)
+      }
+    }
+
+    loadUser()
+
+    window.addEventListener('storage', loadUser)
+    window.addEventListener('userUpdated', loadUser)
+
+    return () => {
+      window.removeEventListener('storage', loadUser)
+      window.removeEventListener('userUpdated', loadUser)
+    }
+  }, [])
+
   return (
     <aside className={styles.sidebar}>
       <div className={styles.top}>
@@ -83,7 +114,12 @@ const Sidebar = ({
             className={styles.navItem}
             onClick={closeAllPanels}
           >
-            <span className={styles.profileCircle}></span>
+            <img
+              src={user?.avatar || '/default-avatar.png'}
+              alt={user?.username || 'Profile'}
+              className={styles.profileAvatar}
+            />
+
             <span>Profile</span>
           </Link>
         </nav>
