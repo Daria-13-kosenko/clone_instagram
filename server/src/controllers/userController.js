@@ -19,20 +19,20 @@ export const getMyProfile = async (req, res) => {
 
 export const updateMyProfile = async (req, res) => {
   try {
-    const user = await User.findById(req.user.userId)
+    const userId = req.user.userId
+    const { username, bio, website, avatar } = req.body
 
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' })
-    }
-
-    user.username = req.body.username ?? user.username
-    user.website = req.body.website ?? user.website
-    user.bio = req.body.bio ?? user.bio
-    user.avatar = req.body.avatar ?? user.avatar
-
-    await user.save()
-
-    res.json(user)
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        username,
+        bio,
+        website,
+        avatar,
+      },
+      { new: true },
+    )
+    res.json(updatedUser)
   } catch (error) {
     res.status(500).json({ message: error.message })
   }

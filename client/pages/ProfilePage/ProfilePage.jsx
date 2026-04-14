@@ -58,7 +58,7 @@ const ProfilePage = () => {
   }, [])
 
   if (!user) {
-    return
+    return <div>Loading...</div>
   }
 
   return (
@@ -66,11 +66,17 @@ const ProfilePage = () => {
       <div className={styles.header}>
         <div className={styles.avatarWrapper}>
           <div className={styles.avatarRing}>
-            <img
-              src={user.avatar || 'http://via.placeholder.com/150'}
-              alt={user.username}
-              className={styles.avatar}
-            />
+            {user.avatar ? (
+              <img
+                src={user.avatar}
+                alt={user.useername}
+                className={styles.avatar}
+              />
+            ) : (
+              <div className={styles.avatarPlaceholder}>
+                {user.username?.charAt(0)?.toUpperCase() || 'U'}
+              </div>
+            )}
           </div>
         </div>
 
@@ -129,7 +135,7 @@ const ProfilePage = () => {
       {selectedPost && (
         <PostModal
           post={selectedPost}
-          currentUser={currentUser}
+          currentUser={user}
           onClose={handleCloseModal}
           onDelete={handleDelete}
           onEdit={handleEdit}

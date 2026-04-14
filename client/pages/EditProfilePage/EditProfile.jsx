@@ -46,6 +46,21 @@ const EditProfile = () => {
       alert('Failed to update profile')
     }
   }
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    try {
+      const updatedUser = await updateMyProfile({
+        username,
+        bio,
+        website,
+        avatar,
+      })
+      alert('Profile updated successfully')
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <div className={styles.page}>
