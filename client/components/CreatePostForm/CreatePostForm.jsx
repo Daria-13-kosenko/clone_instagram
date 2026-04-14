@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { createPost } from '../../src/api/postApi.js'
 import Download from '../../src/assets/icons/Download.svg'
 import Smile from '../../src/assets/icons/Smile.svg'
@@ -10,8 +10,7 @@ const CreatePostForm = ({ onPostCreated, isOpen, onClose }) => {
   const [image, setImage] = useState(null)
   const [preview, setPreview] = useState('')
   const [error, setError] = useState('')
-
-  if (!isOpen) return null
+  const [user, setUser] = useState(null)
 
   const handleChooseFile = () => {
     fileInputRef.current?.click()
@@ -53,6 +52,16 @@ const CreatePostForm = ({ onPostCreated, isOpen, onClose }) => {
     }
   }
 
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user')
+
+    if (storedUser) {
+      setUser(JSON.parse(storedUser))
+    }
+  }, [])
+
+  if (!isOpen) return null
+
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
@@ -91,8 +100,14 @@ const CreatePostForm = ({ onPostCreated, isOpen, onClose }) => {
 
           <div className={styles.right}>
             <div className={styles.userRow}>
-              <div className={styles.avatar}></div>
-              <p>suka_laba</p>
+              <div className={styles.userInfo}>
+                <img
+                  src={user?.avatar || '/default-avatar.png'}
+                  alt={user?.username || 'user'}
+                  className={styles.userAva}
+                />
+                <p>{user?.username || 'user'}</p>
+              </div>
             </div>
 
             <textarea
