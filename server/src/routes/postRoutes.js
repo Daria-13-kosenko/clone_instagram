@@ -19,6 +19,6 @@ router.get('/me', authMiddleware, getMyPosts)
 router.get('/:id', getPostById)
 router.post('/', authMiddleware, upload.single('image'), createPost)
 router.put('/:id', authMiddleware, upload.single('image'), updatePost)
-router.delete('/:id', authMiddleware, deletePost)
+router.delete('/:postId', authMiddleware, deletePost)
 
 export default router

@@ -3,11 +3,45 @@ import { Link } from 'react-router-dom'
 import styles from './ProfilePage.module.css'
 import { getMyProfile } from '../../src/api/userApi.js'
 import { getMyPosts } from '../../src/api/postApi.js'
+import PostModal from '../PostModal/PostModal.jsx'
+import { deletePost } from '../../src/api/postApi.js'
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null)
   const [posts, setPosts] = useState([])
+  const [selectedPost, setSelectedPost] = useState(null)
 
+  const handleOpenModal = (post) => {
+    setSelectedPost(post)
+  }
+  const handleCloseModal = () => {
+    setSelectedPost(null)
+  }
+  const handleEdit = (post) => {
+    console.log('edit post', post)
+  }
+  const handleGoToPost = (post) => {
+    console.log('go to post', post)
+  }
+  const handleCopyLink = async (post) => {
+    try {
+      const link = `${window.location.origin}/posts/${post._id}`
+      await navigator.clipboard.writeText(link)
+      alert('Link copied')
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  const handleDelete = async (post) => {
+    try {
+      await deletePost(post._id)
+      setPosts((prev) => prev.filter((item) => item._id !== post._id))
+
+      handleCloseModal()
+    } catch (error) {
+      console.log(error)
+    }
+  }
   useEffect(() => {
     const loadProfile = async () => {
       try {
@@ -83,11 +117,26 @@ const ProfilePage = () => {
 
       <div className={styles.postsGrid}>
         {posts.map((post) => (
-          <div key={post._id} className={styles.postCard}>
+          <div
+            key={post._id}
+            className={styles.postCard}
+            onClick={() => handleOpenModal(post)}
+          >
             <img src={post.image} alt={post.caption || 'post'} />
           </div>
         ))}
       </div>
+      {selectedPost && (
+        <PostModal
+          post={selectedPost}
+          currentUser={currentUser}
+          onClose={handleCloseModal}
+          onDelete={handleDelete}
+          onEdit={handleEdit}
+          onGoToPost={handleGoToPost}
+          onCopyLink={handleCopyLink}
+        />
+      )}
     </div>
   )
 }

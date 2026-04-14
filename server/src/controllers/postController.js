@@ -112,7 +112,10 @@ export const updatePost = async (req, res) => {
 
 export const deletePost = async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id)
+    const { postId } = req.params
+    const userId = req.user.userId
+
+    const post = await Post.findById(postId)
 
     if (!post) {
       return res.status(404).json({
@@ -120,20 +123,20 @@ export const deletePost = async (req, res) => {
       })
     }
 
-    if (post.author.toString() !== req.user.userId) {
+    if (String(post.author) !== String(userId)) {
       return res.status(403).json({
-        message: 'You can delete only your own posts',
+        message: 'Not allowed to delete this post',
       })
     }
+
     await post.deleteOne()
 
-    res.status(200).json({
+    res.json({
       message: 'Post deleted successfully',
     })
   } catch (error) {
-    res.status(500).json({
-      message: error.message,
-    })
+    console.error('deletePost error:', error)
+    res.status(500).json({ message: error.message })
   }
 }
 

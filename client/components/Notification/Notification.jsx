@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import { getMyNotifications } from '../../src/api/notificationApi.js'
 import styles from './Notification.module.css'
+import { useNavigate } from 'react-router-dom'
 
 const Notifications = ({ isOpen, onClose }) => {
   const [notifications, setNotifications] = useState([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!isOpen) return
@@ -96,6 +98,11 @@ const Notifications = ({ isOpen, onClose }) => {
     )
   }
 
+  const handleOpenUserProfile = (userId) => {
+    if (!userId) return
+    onClose?.()
+    navigate(`/profile/${userId}`)
+  }
   return (
     <>
       <div className={styles.overlay} onClick={onClose}></div>
@@ -108,7 +115,11 @@ const Notifications = ({ isOpen, onClose }) => {
         ) : (
           <div className={styles.list}>
             {notifications.map((item) => (
-              <div key={item._id} className={styles.item}>
+              <div
+                key={item._id}
+                className={styles.item}
+                onClick={() => handleOpenUserProfile(item.sender?._id)}
+              >
                 {renderAvatar(item)}
 
                 <div className={styles.text}>
