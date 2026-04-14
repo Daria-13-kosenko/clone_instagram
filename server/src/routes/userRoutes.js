@@ -13,7 +13,7 @@ import {
 const router = express.Router()
 
 router.get('/me', authMiddleware, getMyProfile)
-router.put('/me', authMiddleware, updateMyProfile)
+router.patch('/me', authMiddleware, updateMyProfile)
 
 router.get('/:userId', authMiddleware, getUserProfileById)
 router.get('/:userId/posts', authMiddleware, getUserPostsById)
