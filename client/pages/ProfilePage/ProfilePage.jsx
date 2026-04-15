@@ -90,13 +90,13 @@ const ProfilePage = () => {
 
           <div className={styles.stats}>
             <p>
-              <strong>{posts.length}</strong>posts
+              <strong>{posts.length}</strong> posts
             </p>
             <p>
-              <strong>{user.followersCount || 0}</strong>followers
+              <strong>{user.followersCount || 0}</strong> followers
             </p>
             <p>
-              <strong>{user.followingCount || 0}</strong>following
+              <strong>{user.followingCount || 0}</strong> following
             </p>
           </div>
 

@@ -49,6 +49,14 @@ const Search = ({ isOpen, onClose }) => {
     onClose?.()
     navigate(`/profile/${user._id}`)
   }
+
+  const getAvatarUrl = (avatar) => {
+    if (!avatar) return '/default-avatar.png'
+    if (avatar.startsWith('data:image')) {
+      return avatar
+    }
+    return `http://localhost:5000/${avatar}`
+  }
   return (
     <>
       <div className={styles.overlay} onClick={onClose}></div>
@@ -110,7 +118,7 @@ const Search = ({ isOpen, onClose }) => {
                   onClick={() => handleOpenUserProfile(user)}
                 >
                   <img
-                    src={user.avatar || '/default-avatar.png'}
+                    src={getAvatarUrl(user.avatar)}
                     alt={user.username}
                     className={styles.avatar}
                     onError={(e) => {

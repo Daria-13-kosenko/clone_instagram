@@ -19,5 +19,6 @@ router.get('/:userId', authMiddleware, getUserProfileById)
 router.get('/:userId/posts', authMiddleware, getUserPostsById)
 router.post('/:userId/follow', authMiddleware, followUser)
 router.delete('/:userId/follow', authMiddleware, unfollowUser)
+router.post('/follow/:userId', authMiddleware, followUser)
 
 export default router

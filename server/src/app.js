@@ -74,4 +74,6 @@ app.use('/api/search', searchRoutes)
 app.use('/api/notifications', notificationRoutes)
 app.use('/api/messages', messageRoutes)
 
+app.use('/uploads', express.static('uploads'))
+
 export { app, server, io }

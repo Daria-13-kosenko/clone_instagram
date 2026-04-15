@@ -27,16 +27,19 @@ export const getUserPosts = async (userId) => {
 }
 
 export const followUser = async (userId) => {
-  const { data } = await axios.post(
-    `http://localhost:5000/api/users/${userId}/follow`,
+  const token = localStorage.getItem('token')
+
+  const res = await axios.post(
+    `http://localhost:5000/api/users/follow/${userId}`,
     {},
     {
       headers: {
-        Authorization: `Bearer ${getToken()}`,
+        Authorization: `Bearer ${token}`,
       },
     },
   )
-  return data
+
+  return res.data
 }
 
 export const unfollowUser = async (userId) => {
