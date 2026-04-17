@@ -9,7 +9,7 @@ import {
 import { getMyProfile } from '../../src/api/userApi.js'
 import styles from './MessagePage.module.css'
 
-const socket = io('http://localhost:5000')
+const socket = io(import.meta.env.VITE_API_URL)
 
 const MessagePage = () => {
   const [currentUser, setCurrentUser] = useState(null)

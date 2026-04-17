@@ -4,7 +4,7 @@ const getToken = () => localStorage.getItem('token')
 
 export const getMyConversations = async () => {
   const { data } = await axios.get(
-    'http://localhost:5000/api/messages/conversations',
+    '${import.meta.env.VITE_API_URL}/api/messages/conversations',
     {
       headers: {
         Authorization: `Bearer ${getToken()}`,
@@ -16,7 +16,7 @@ export const getMyConversations = async () => {
 
 export const createOrGetConversation = async (participantId) => {
   const { data } = await axios.post(
-    'http://localhost:5000/api/messages/conversations',
+    '${import.meta.env.VITE_API_URL}/api/messages/conversations',
     { participantId },
     {
       headers: {
@@ -29,7 +29,7 @@ export const createOrGetConversation = async (participantId) => {
 
 export const getMessageByConversation = async (convetsationId) => {
   const { data } = await axios.get(
-    `http://localhost:5000/api/messages/conversations/${convetsationId}/messages`,
+    `${import.meta.env.VITE_API_URL}/api/messages/conversations/${convetsationId}/messages`,
     {
       headers: {
         Authorization: `Bearer ${getToken()}`,
@@ -41,7 +41,7 @@ export const getMessageByConversation = async (convetsationId) => {
 
 export const sendMessage = async (conversationId, text) => {
   const { data } = await axios.post(
-    `http://localhost:5000/api/messages/conversations/${conversationId}/messages`,
+    `${import.meta.env.VITE_API_URL}/api/messages/conversations/${conversationId}/messages`,
     { text },
     {
       headers: {

@@ -4,14 +4,13 @@ export const getCommentsByPost = async (postId) => {
   const token = localStorage.getItem('token')
 
   const { data } = await axios.get(
-    `http://localhost:5000/api/comments/${postId}`,
+    `${import.meta.env.VITE_API_URL}/api/comments/${postId}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     },
   )
-
   return data
 }
 
@@ -19,7 +18,7 @@ export const createComment = async (postId, text) => {
   const token = localStorage.getItem('token')
 
   const { data } = await axios.post(
-    `http://localhost:5000/api/comments/${postId}`,
+    `${import.meta.env.VITE_API_URL}/api/comments/${postId}`,
     { text },
     {
       headers: {
@@ -27,6 +26,5 @@ export const createComment = async (postId, text) => {
       },
     },
   )
-
   return data
 }
