@@ -22,14 +22,25 @@ const __dirname = path.dirname(__filename)
 
 app.use(express.static(path.join(__dirname, 'public')))
 
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://clone-instagram-s30u.onrender.com',
+]
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  }),
+)
+
 const io = new Server(server, {
   cors: {
-    origin: process.env.CLIENT_URL || '*',
+    origin: allowedOrigins,
     methods: ['GET', 'POST'],
     credentials: true,
   },
 })
-
 const onlineUsers = new Map()
 
 io.on('connection', (socket) => {
