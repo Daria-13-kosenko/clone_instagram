@@ -23,12 +23,26 @@ const __dirname = path.dirname(__filename)
 const allowedOrigins = [
   'http://localhost:5173',
   'https://clone-instagram-s30u.onrender.com',
-  'https://clone-instagram-q0auh1aql-daria2.vercel.app',
 ]
+
+const isAllowedOrigin = (origin) => {
+  if (!origin) return true
+
+  return (
+    allowedOrigins.includes(origin) ||
+    /^https:\/\/clone-instagram.*\.vercel\.app$/.test(origin)
+  )
+}
 
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: (origin, callback) => {
+      if (isAllowedOrigin(origin)) {
+        callback(null, true)
+      } else {
+        callback(new Error('Not allowed by CORS'))
+      }
+    },
     credentials: true,
   }),
 )
@@ -40,7 +54,13 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 const io = new Server(server, {
   cors: {
-    origin: allowedOrigins,
+    origin: (origin, callback) => {
+      if (isAllowedOrigin(origin)) {
+        callback(null, true)
+      } else {
+        callback(new Error('Not allowed by Socket.IO CORS'))
+      }
+    },
     methods: ['GET', 'POST'],
     credentials: true,
   },
