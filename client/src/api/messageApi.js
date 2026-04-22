@@ -4,7 +4,7 @@ const getToken = () => localStorage.getItem('token')
 
 export const getMyConversations = async () => {
   const { data } = await axios.get(
-    '${import.meta.env.VITE_API_URL}/api/messages/conversations',
+    `${import.meta.env.VITE_API_URL}/api/messages/conversations`,
     {
       headers: {
         Authorization: `Bearer ${getToken()}`,
@@ -27,9 +27,9 @@ export const createOrGetConversation = async (participantId) => {
   return data
 }
 
-export const getMessageByConversation = async (convetsationId) => {
+export const getMessageByConversation = async (conversationId) => {
   const { data } = await axios.get(
-    `${import.meta.env.VITE_API_URL}/api/messages/conversations/${convetsationId}/messages`,
+    `${import.meta.env.VITE_API_URL}/api/messages/conversations/${conversationId}/messages`,
     {
       headers: {
         Authorization: `Bearer ${getToken()}`,
