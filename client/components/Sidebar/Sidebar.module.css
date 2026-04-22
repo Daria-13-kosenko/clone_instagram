@@ -116,7 +116,63 @@
 .active img {
   transform: scale(1.03);
 }
+@media (max-width: 900px) {
+  body {
+    padding-bottom: 64px;
+  }
+  .sidebar {
+    position: fixed;
+    bottom: 0;
+    top: auto;
+    left: 0;
+    width: 100%;
+    height: 64px;
+    border-right: none;
+    border-top: 1px solid #dbdbdb;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 6px;
+    z-index: 2000;
+  }
 
+  .logoWrapper {
+    display: none;
+  }
+
+  .nav {
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    gap: 0;
+  }
+
+  .navItem,
+  .navItemButton {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    padding: 6px;
+    font-size: 0;
+  }
+
+  .navItem span,
+  .navItemButton span {
+    display: none;
+  }
+
+  .navItem img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .profileAvatar,
+  .profileCircle {
+    width: 26px;
+    height: 26px;
+  }
+}
 /* для средних экранов — сделать компактнее */
 @media (max-width: 1200px) {
   .sidebar {
@@ -132,12 +188,5 @@
   .navItem,
   .navItemButton {
     padding: 10px 8px;
-  }
-}
-
-/* планшет и мобильный */
-@media (max-width: 900px) {
-  .sidebar {
-    display: none;
   }
 }
