@@ -1,5 +1,28 @@
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(2px, 0.6vw, 4px);
+  width: 100%;
+}
+
+/* планшеты */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* телефоны */
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2px;
+  }
+}
+
+/* очень маленькие экраны */
+@media (max-width: 360px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
 }

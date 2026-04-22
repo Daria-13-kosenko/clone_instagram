@@ -1,54 +1,58 @@
 .page {
-  max-width: 720px;
+  width: min(100%, 720px);
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: clamp(20px, 4vw, 40px) clamp(14px, 4vw, 20px);
   background: #fff;
+  box-sizing: border-box;
 }
+
 .title {
-  font-size: 32px;
+  font-size: clamp(24px, 4vw, 32px);
   font-weight: 700;
-  margin-bottom: 30px;
+  margin-bottom: clamp(20px, 4vw, 30px);
+  line-height: 1.2;
 }
+
 .form {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: clamp(20px, 3vw, 28px);
 }
+
 .profileBox {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 16px;
   background: #f4f4f4;
   border-radius: 18px;
-  padding: 16px 20px;
+  padding: clamp(14px, 3vw, 20px);
+  box-sizing: border-box;
+  flex-wrap: wrap;
 }
+
 .profileInfo {
   display: flex;
   align-items: center;
   gap: 16px;
+  min-width: 0;
+  flex: 1 1 260px;
 }
-.avatar {
-  width: 56px;
-  height: 56px;
+
+.avatar,
+.avatarPlaceholder {
+  width: clamp(48px, 8vw, 56px);
+  height: clamp(48px, 8vw, 56px);
   border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.avatar {
   object-fit: cover;
   border: 1px solid #ddd;
 }
-.username {
-  font-size: 22px;
-  font-weight: 700;
-  margin: 0;
-}
-.bioPreview {
-  font-size: 14px;
-  color: #666;
-  margin-top: 4px;
-  max-width: 320px;
-}
+
 .avatarPlaceholder {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
   background: #dbdbdb;
   display: flex;
   align-items: center;
@@ -56,6 +60,22 @@
   font-weight: 600;
   color: #555;
 }
+
+.username {
+  font-size: clamp(18px, 3vw, 22px);
+  font-weight: 700;
+  margin: 0;
+  word-break: break-word;
+}
+
+.bioPreview {
+  font-size: clamp(13px, 2vw, 14px);
+  color: #666;
+  margin-top: 4px;
+  max-width: 100%;
+  word-break: break-word;
+}
+
 .photoButton {
   background: #0095f6;
   color: white;
@@ -66,32 +86,44 @@
   font-weight: 600;
   cursor: pointer;
   transition: 0.2s ease;
+  flex: 0 1 auto;
+  white-space: nowrap;
 }
+
 .photoButton:hover {
   background: #1877f2;
 }
+
 .field {
   display: flex;
   flex-direction: column;
   gap: 8px;
   position: relative;
+  width: 100%;
 }
+
 .field label {
   font-size: 15px;
   font-weight: 600;
 }
+
 .field input,
 .field textarea {
+  width: 100%;
   border: 1px solid #d6d6d6;
   border-radius: 12px;
   padding: 14px 16px;
   font-size: 15px;
   outline: none;
+  box-sizing: border-box;
 }
+
 .field textarea {
   min-height: 120px;
-  resize: none;
+  resize: vertical;
+  padding-bottom: 34px;
 }
+
 .counter {
   position: absolute;
   right: 14px;
@@ -99,8 +131,9 @@
   font-size: 13px;
   color: #888;
 }
+
 .saveButton {
-  width: 240px;
+  width: min(100%, 240px);
   background: #0095f6;
   color: white;
   border: none;
@@ -114,4 +147,23 @@
 
 .saveButton:hover {
   background: #1877f2;
+}
+
+@media (max-width: 600px) {
+  .profileBox {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .profileInfo {
+    width: 100%;
+  }
+
+  .photoButton {
+    width: 100%;
+  }
+
+  .saveButton {
+    width: 100%;
+  }
 }

@@ -1,6 +1,6 @@
 .sidebar {
-  width: 245px;
-  min-width: 245px;
+  width: clamp(220px, 20vw, 245px);
+  min-width: clamp(220px, 20vw, 245px);
   height: 100vh;
   border-right: 1px solid #dbdbdb;
   background: #fff;
@@ -10,20 +10,23 @@
   top: 0;
   left: 0;
   z-index: 1400;
+  display: flex;
+  flex-direction: column;
 }
 
 .top {
   display: flex;
   flex-direction: column;
+  min-height: 0;
 }
 
 .logoWrapper {
-  margin-bottom: 30px;
+  margin-bottom: clamp(20px, 4vw, 30px);
   padding: 8px 10px;
 }
 
 .logo {
-  width: 110px;
+  width: clamp(90px, 10vw, 110px);
   height: auto;
   display: block;
 }
@@ -40,10 +43,11 @@
   gap: 12px;
   text-decoration: none;
   color: #262626;
-  font-size: 15px;
+  font-size: clamp(14px, 1.5vw, 15px);
   padding: 12px 10px;
   border-radius: 10px;
   transition: background 0.2s ease;
+  min-width: 0;
 }
 
 .navItemButton {
@@ -54,40 +58,43 @@
   padding: 12px 10px;
   border-radius: 12px;
   box-sizing: border-box;
-
   color: #262626;
   text-decoration: none;
-  font-size: 16px;
+  font-size: clamp(14px, 1.6vw, 16px);
   font-weight: 400;
   line-height: 20px;
-
   background: transparent;
   border: none;
   cursor: pointer;
   text-align: left;
-
   transition:
     background-color 0.2s ease,
     transform 0.2s ease;
+  min-width: 0;
 }
+
 .navItemButton:hover {
   background: #f2f2f2;
 }
+
 .navItem:hover {
   background: #f2f2f2;
 }
 
 .navItem img {
-  width: 22px;
-  height: 22px;
+  width: clamp(20px, 2vw, 22px);
+  height: clamp(20px, 2vw, 22px);
   object-fit: contain;
+  flex-shrink: 0;
 }
 
 .profileAvatar {
   width: 24px;
   height: 24px;
   border-radius: 50%;
+  flex-shrink: 0;
 }
+
 .profileCircle {
   width: 24px;
   height: 24px;
@@ -99,13 +106,36 @@
   font-size: 12px;
   font-weight: 600;
   color: #555;
+  flex-shrink: 0;
 }
+
 .active span {
   font-weight: 700;
 }
+
 .active img {
   transform: scale(1.03);
 }
+
+/* для средних экранов — сделать компактнее */
+@media (max-width: 1200px) {
+  .sidebar {
+    width: 220px;
+    min-width: 220px;
+    padding: 18px 12px;
+  }
+
+  .logo {
+    width: 96px;
+  }
+
+  .navItem,
+  .navItemButton {
+    padding: 10px 8px;
+  }
+}
+
+/* планшет и мобильный */
 @media (max-width: 900px) {
   .sidebar {
     display: none;

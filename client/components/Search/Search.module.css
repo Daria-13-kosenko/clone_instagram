@@ -4,11 +4,12 @@
   background: rgba(0, 0, 0, 0.45);
   z-index: 1200;
 }
+
 .panel {
   position: fixed;
   top: 0;
-  left: 245px;
-  width: 397px;
+  left: clamp(0px, 18vw, 245px);
+  width: min(397px, 92vw);
   height: 100vh;
   background: #fff;
   border-left: 1px solid #dbdbdb;
@@ -16,7 +17,7 @@
   border-top-right-radius: 18px;
   border-bottom-right-radius: 18px;
   z-index: 1300;
-  padding: 24px 20px;
+  padding: clamp(18px, 3vw, 24px) clamp(14px, 3vw, 20px);
   box-sizing: border-box;
   overflow-y: auto;
   animation: slideIn 0.25s ease;
@@ -24,7 +25,7 @@
 
 .title {
   margin: 0 0 24px;
-  font-size: 24px;
+  font-size: clamp(20px, 3vw, 24px);
   font-weight: 700;
   color: #262626;
 }
@@ -71,15 +72,17 @@
 }
 
 .avatar {
-  width: 44px;
-  height: 44px;
+  width: clamp(38px, 6vw, 44px);
+  height: clamp(38px, 6vw, 44px);
   border-radius: 50%;
   object-fit: cover;
+  flex-shrink: 0;
 }
 
 .text {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .username {
@@ -87,17 +90,63 @@
   font-size: 14px;
   font-weight: 600;
   color: #262626;
+  word-break: break-word;
 }
 
 .name {
   margin: 2px 0 0;
   font-size: 14px;
   color: #8e8e8e;
+  word-break: break-word;
 }
 
 .empty {
   font-size: 14px;
   color: #8e8e8e;
+}
+
+/* планшеты */
+@media (max-width: 900px) {
+  .panel {
+    left: 0;
+    width: min(360px, 92vw);
+    border-radius: 0 18px 18px 0;
+  }
+}
+
+/* мобильные */
+@media (max-width: 768px) {
+  .panel {
+    width: 100%;
+    left: 0;
+    border-radius: 0;
+    padding: 20px 16px;
+  }
+
+  .title {
+    margin-bottom: 20px;
+  }
+
+  .list {
+    gap: 14px;
+  }
+}
+
+/* очень маленькие экраны */
+@media (max-width: 480px) {
+  .input {
+    height: 38px;
+    font-size: 13px;
+  }
+
+  .username,
+  .name {
+    font-size: 13px;
+  }
+
+  .sectionHeader {
+    font-size: 13px;
+  }
 }
 
 @keyframes slideIn {

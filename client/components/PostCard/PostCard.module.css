@@ -1,5 +1,7 @@
 .card {
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .header {
@@ -7,38 +9,43 @@
   align-items: center;
   gap: 10px;
   margin-bottom: 10px;
-  font-size: 13px;
+  font-size: clamp(12px, 1.8vw, 13px);
   color: #262626;
 }
 
-.avatar {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: linear-gradient(45deg, #f9ce34, #ee2a7b, #6228d7);
-  flex-shrink: 0;
-}
 .userInfo {
   display: flex;
   align-items: center;
   gap: 10px;
   cursor: pointer;
+  min-width: 0;
+}
+
+.avatar,
+.avatarPlaceholder {
+  width: clamp(28px, 4vw, 32px);
+  height: clamp(28px, 4vw, 32px);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.avatar {
+  background: linear-gradient(45deg, #f9ce34, #ee2a7b, #6228d7);
 }
 
 .avatarPlaceholder {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
   background: #dbdbdb;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: clamp(12px, 2vw, 14px);
   font-weight: 600;
 }
 
 .username {
   margin: 0;
+  font-size: clamp(13px, 2vw, 14px);
+  word-break: break-word;
 }
 
 .image {
@@ -46,12 +53,13 @@
   aspect-ratio: 1 / 1.08;
   object-fit: cover;
   display: block;
+  border-radius: 4px;
 }
 
 .actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: clamp(8px, 2vw, 12px);
   margin: 8px 0 6px;
 }
 
@@ -60,16 +68,22 @@
   background: transparent;
   cursor: pointer;
   padding: 0;
-  font-size: 18px;
+  font-size: clamp(16px, 2.5vw, 18px);
   color: #262626;
+  transition: transform 0.15s ease;
+}
+
+.actions button:hover {
+  transform: scale(1.1);
 }
 
 .likes,
 .caption,
 .comments {
   margin: 4px 0;
-  font-size: 12px;
+  font-size: clamp(12px, 2vw, 13px);
   color: #262626;
+  word-break: break-word;
 }
 
 .comments {
@@ -84,10 +98,12 @@
 
 .commentForm input {
   flex: 1;
+  min-width: 0;
   border: 1px solid #dbdbdb;
   padding: 8px 10px;
   outline: none;
-  font-size: 13px;
+  font-size: clamp(12px, 2vw, 13px);
+  border-radius: 6px;
 }
 
 .commentForm button {
@@ -96,4 +112,35 @@
   color: #0095f6;
   font-weight: 600;
   cursor: pointer;
+  white-space: nowrap;
+}
+
+/* планшеты */
+@media (max-width: 768px) {
+  .image {
+    aspect-ratio: 1 / 1;
+  }
+
+  .actions {
+    gap: 10px;
+  }
+}
+
+/* телефоны */
+@media (max-width: 480px) {
+  .header {
+    margin-bottom: 8px;
+  }
+
+  .commentForm {
+    gap: 6px;
+  }
+
+  .commentForm input {
+    padding: 6px 8px;
+  }
+
+  .actions button {
+    font-size: 16px;
+  }
 }
