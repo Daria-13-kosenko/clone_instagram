@@ -20,11 +20,10 @@ const server = http.createServer(app)
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-app.use(express.static(path.join(__dirname, 'public')))
-
 const allowedOrigins = [
   'http://localhost:5173',
   'https://clone-instagram-s30u.onrender.com',
+  'https://clone-instagram-q0auh1aql-daria2.vercel.app',
 ]
 
 app.use(
@@ -34,6 +33,11 @@ app.use(
   }),
 )
 
+app.use(express.json({ limit: '10mb' }))
+app.use(express.urlencoded({ limit: '10mb', extended: true }))
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
+
 const io = new Server(server, {
   cors: {
     origin: allowedOrigins,
@@ -41,6 +45,7 @@ const io = new Server(server, {
     credentials: true,
   },
 })
+
 const onlineUsers = new Map()
 
 io.on('connection', (socket) => {
@@ -48,16 +53,16 @@ io.on('connection', (socket) => {
 
   socket.on('join', (userId) => {
     onlineUsers.set(userId, socket.id)
-  })
-  socket.on('join', (userId) => {
     socket.join(userId)
   })
+
   socket.on('joinConversation', (conversationId) => {
     socket.join(conversationId)
   })
 
   socket.on('sendMessage', (message) => {
     io.to(message.conversation).emit('newMessage', message)
+
     if (message.recipientId) {
       io.to(message.recipientId).emit('newNotification')
     }
@@ -74,11 +79,6 @@ io.on('connection', (socket) => {
   })
 })
 
-app.use(cors())
-// app.use(express.json())
-app.use(express.json({ limit: '10mb' }))
-app.use(express.urlencoded({ limit: '10mb', extended: true }))
-
 app.get('/api', (req, res) => {
   res.json({ message: 'API is working' })
 })
@@ -92,10 +92,8 @@ app.use('/api/search', searchRoutes)
 app.use('/api/notifications', notificationRoutes)
 app.use('/api/messages', messageRoutes)
 
-app.use('/uploads', express.static('uploads'))
-
-app.get((req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'))
+app.get('/', (req, res) => {
+  res.json({ message: 'Backend is running' })
 })
 
 export { app, server, io }

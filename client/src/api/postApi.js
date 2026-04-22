@@ -4,7 +4,7 @@ export const getAllPosts = async () => {
   const token = localStorage.getItem('token')
 
   const { data } = await axios.get(
-    '${import.meta.env.VITE_API_URL}/api/posts',
+    `${import.meta.env.VITE_API_URL}/api/posts`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -19,7 +19,7 @@ export const createPost = async (formData) => {
   const token = localStorage.getItem('token')
 
   const { data } = await axios.post(
-    '${import.meta.env.VITE_API_URL}/api/posts',
+    `${import.meta.env.VITE_API_URL}/api/posts`,
     formData,
     {
       headers: {
@@ -67,7 +67,7 @@ export const getMyPosts = async () => {
   const token = localStorage.getItem('token')
 
   const { data } = await axios.get(
-    '${import.meta.env.VITE_API_URL}/api/posts/me',
+    `${import.meta.env.VITE_API_URL}/api/posts/me`,
     {
       headers: {
         Authorization: `Bearer ${token}`,

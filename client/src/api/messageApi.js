@@ -16,7 +16,7 @@ export const getMyConversations = async () => {
 
 export const createOrGetConversation = async (participantId) => {
   const { data } = await axios.post(
-    '${import.meta.env.VITE_API_URL}/api/messages/conversations',
+    `${import.meta.env.VITE_API_URL}/api/messages/conversations`,
     { participantId },
     {
       headers: {
