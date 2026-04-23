@@ -1,10 +1,10 @@
 .sidebar {
-  width: clamp(220px, 20vw, 245px);
-  min-width: clamp(220px, 20vw, 245px);
+  width: 245px;
+  min-width: 245px;
   height: 100vh;
   border-right: 1px solid #dbdbdb;
   background: #fff;
-  padding: 20px 14px;
+  padding: 20px 12px;
   box-sizing: border-box;
   position: fixed;
   top: 0;
@@ -21,12 +21,12 @@
 }
 
 .logoWrapper {
-  margin-bottom: clamp(20px, 4vw, 30px);
-  padding: 8px 10px;
+  margin-bottom: 28px;
+  padding: 12px;
 }
 
 .logo {
-  width: clamp(90px, 10vw, 110px);
+  width: 105px;
   height: auto;
   display: block;
 }
@@ -37,30 +37,19 @@
   gap: 8px;
 }
 
-.navItem {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  text-decoration: none;
-  color: #262626;
-  font-size: clamp(14px, 1.5vw, 15px);
-  padding: 12px 10px;
-  border-radius: 10px;
-  transition: background 0.2s ease;
-  min-width: 0;
-}
-
+.navItem,
 .navItemButton {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   width: 100%;
-  padding: 12px 10px;
+  min-width: 0;
+  padding: 12px;
   border-radius: 12px;
   box-sizing: border-box;
-  color: #262626;
+  color: #000;
   text-decoration: none;
-  font-size: clamp(14px, 1.6vw, 16px);
+  font-size: 16px;
   font-weight: 400;
   line-height: 20px;
   background: transparent;
@@ -70,35 +59,35 @@
   transition:
     background-color 0.2s ease,
     transform 0.2s ease;
-  min-width: 0;
 }
 
+.navItem:hover,
 .navItemButton:hover {
   background: #f2f2f2;
 }
 
-.navItem:hover {
-  background: #f2f2f2;
-}
-
-.navItem img {
-  width: clamp(20px, 2vw, 22px);
-  height: clamp(20px, 2vw, 22px);
+.navItem img,
+.navItemButton img {
+  width: 24px;
+  height: 24px;
   object-fit: contain;
   flex-shrink: 0;
 }
 
-.profileAvatar {
+.profileAvatar,
+.profileCircle {
   width: 24px;
   height: 24px;
   border-radius: 50%;
   flex-shrink: 0;
 }
 
+.profileAvatar {
+  object-fit: cover;
+  border: 1px solid #dbdbdb;
+}
+
 .profileCircle {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
   background: #dbdbdb;
   display: flex;
   align-items: center;
@@ -106,34 +95,79 @@
   font-size: 12px;
   font-weight: 600;
   color: #555;
-  flex-shrink: 0;
+}
+
+.active {
+  font-weight: 700;
 }
 
 .active span {
   font-weight: 700;
 }
 
-.active img {
-  transform: scale(1.03);
+.active img,
+.active .profileAvatar,
+.active .profileCircle {
+  transform: scale(1.04);
 }
-@media (max-width: 900px) {
-  body {
-    padding-bottom: 64px;
-  }
+
+/* tablet / smaller desktop: like Instagram collapsed sidebar */
+@media (max-width: 1264px) {
   .sidebar {
-    position: fixed;
-    bottom: 0;
+    width: 72px;
+    min-width: 72px;
+    padding: 20px 8px;
+  }
+
+  .logoWrapper {
+    padding: 10px 0;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .logo {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+  }
+
+  .navItem,
+  .navItemButton {
+    justify-content: center;
+    gap: 0;
+    padding: 12px 0;
+  }
+
+  .navItem span,
+  .navItemButton span {
+    display: none;
+  }
+}
+
+/* mobile: bottom navbar like Instagram */
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 60px;
+  }
+
+  .sidebar {
     top: auto;
+    bottom: 0;
     left: 0;
     width: 100%;
-    height: 64px;
+    min-width: 100%;
+    height: 60px;
+    padding: 0;
     border-right: none;
     border-top: 1px solid #dbdbdb;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    padding: 0 6px;
+    background: #fff;
     z-index: 2000;
+  }
+
+  .top {
+    width: 100%;
+    height: 100%;
   }
 
   .logoWrapper {
@@ -142,19 +176,22 @@
 
   .nav {
     flex-direction: row;
+    align-items: center;
     justify-content: space-around;
     width: 100%;
+    height: 100%;
     gap: 0;
   }
 
   .navItem,
   .navItemButton {
-    flex-direction: column;
+    flex: 1;
+    height: 100%;
     justify-content: center;
     align-items: center;
-    gap: 4px;
-    padding: 6px;
-    font-size: 0;
+    gap: 0;
+    padding: 0;
+    border-radius: 0;
   }
 
   .navItem span,
@@ -162,31 +199,11 @@
     display: none;
   }
 
-  .navItem img {
-    width: 24px;
-    height: 24px;
-  }
-
+  .navItem img,
+  .navItemButton img,
   .profileAvatar,
   .profileCircle {
-    width: 26px;
-    height: 26px;
-  }
-}
-/* для средних экранов — сделать компактнее */
-@media (max-width: 1200px) {
-  .sidebar {
-    width: 220px;
-    min-width: 220px;
-    padding: 18px 12px;
-  }
-
-  .logo {
-    width: 96px;
-  }
-
-  .navItem,
-  .navItemButton {
-    padding: 10px 8px;
+    width: 25px;
+    height: 25px;
   }
 }

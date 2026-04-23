@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import styles from './Sidebar.module.css'
 import Ichra from '../../src/assets/img/Ichra.svg'
 import Home from '../../src/assets/icons/Home.svg'
@@ -19,6 +19,7 @@ const Sidebar = ({
 }) => {
   const [user, setUser] = useState(null)
   const location = useLocation()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const loadUser = () => {
@@ -47,6 +48,26 @@ const Sidebar = ({
     }
   }, [])
 
+  const profileContent = user?.avatar ? (
+    <img
+      src={user.avatar}
+      alt={user?.username || 'Profile'}
+      className={styles.profileAvatar}
+    />
+  ) : (
+    <div className={styles.profileCircle}>
+      {user?.username?.[0]?.toUpperCase() || 'U'}
+    </div>
+  )
+
+  const handleLogout = () => {
+    localStorage.removeItem('user')
+    localStorage.removeItem('token')
+
+    window.dispatchEvent(new Event('userUpdated'))
+    navigate('/login')
+  }
+
   return (
     <aside className={styles.sidebar}>
       <div className={styles.top}>
@@ -55,14 +76,22 @@ const Sidebar = ({
         </div>
 
         <nav className={styles.nav}>
-          <Link to="/home" className={styles.navItem} onClick={closeAllPanels}>
+          <Link
+            to="/home"
+            className={`${styles.navItem} ${
+              location.pathname === '/home' ? styles.active : ''
+            }`}
+            onClick={closeAllPanels}
+          >
             <img src={Home} alt="Home" />
             <span>Home</span>
           </Link>
 
           <button
             type="button"
-            className={`${styles.navItemButton} ${isSearchOpen ? styles.active : ''}`}
+            className={`${styles.navItemButton} ${
+              isSearchOpen ? styles.active : ''
+            }`}
             onClick={handleOpenSearch}
           >
             <img src={Search} alt="Search" />
@@ -82,11 +111,13 @@ const Sidebar = ({
 
           <Link
             to="/message"
-            className={styles.navItem}
+            className={`${styles.navItem} ${
+              location.pathname === '/message' ? styles.active : ''
+            }`}
             onClick={closeAllPanels}
           >
             <img src={Message} alt="Message" />
-            <span>Message</span>
+            <span>Messages</span>
           </Link>
 
           <button
@@ -108,20 +139,42 @@ const Sidebar = ({
             <img src={Create} alt="Create" />
             <span>Create</span>
           </button>
-
+          <br />
           <Link
             to="/profile"
-            className={styles.navItem}
+            className={`${styles.navItem} ${
+              location.pathname === '/profile' ? styles.active : ''
+            }`}
             onClick={closeAllPanels}
           >
-            <img
-              src={user?.avatar || '/default-avatar.png'}
-              alt={user?.username || 'Profile'}
-              className={styles.profileAvatar}
-            />
-
+            {profileContent}
             <span>Profile</span>
           </Link>
+          <br />
+          <br />
+
+          <button
+            type="button"
+            className={styles.navItem}
+            onClick={handleLogout}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+            <span>Logout</span>
+          </button>
         </nav>
       </div>
     </aside>

@@ -27,7 +27,7 @@ const MessagePage = () => {
         const convs = await getMyConversations()
         setConversations(convs)
 
-        if (convs.lenght > 0) {
+        if (convs.length > 0) {
           setSelectedConversation(convs[0])
         }
         socket.emit('join', me._id || me.userId)
@@ -98,7 +98,7 @@ const MessagePage = () => {
     }
   }
   return (
-    <AppLayout className={styles.messagePage}>
+    <AppLayout>
       <div className={styles.page}>
         <div className={styles.sidebar}>
           <h2 className={styles.myName}>
@@ -175,7 +175,7 @@ const MessagePage = () => {
                     >
                       <div
                         className={
-                          styles.isMine ? styles.myMessage : styles.otherMessage
+                          isMine ? styles.myMessage : styles.otherMessage
                         }
                       >
                         {message.text}

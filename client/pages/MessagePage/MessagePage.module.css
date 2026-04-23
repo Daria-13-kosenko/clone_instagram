@@ -1,18 +1,142 @@
-.messagesList {
+.page {
+  display: grid;
+  grid-template-columns: 360px minmax(0, 1fr);
+  height: 100vh;
+  background: #fff;
+  border-left: 1px solid #dbdbdb;
+}
+.sidebar {
+  border-right: 1px solid #dbdbdb;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.myName {
+  height: 74px;
+  margin: 0;
+  padding: 0 20px;
+  border-bottom: 1px solid #dbdbdb;
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: #262626;
+}
+
+.conversations {
   flex: 1;
   overflow-y: auto;
-  padding: 20px 16px;
-  min-height: 0;
-  box-sizing: border-box;
+  padding: 8px 0;
+}
+
+.conversationItem {
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.conversationItem:hover {
+  background: #fafafa;
+}
+
+.avatarCircle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #efefef;
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.conversationText {
+  min-width: 0;
+  flex: 1;
+}
+
+.username {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #262626;
+}
+
+.preview {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: #8e8e8e;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chatArea {
+  min-width: 0;
+  height: 100vh;
+  background: #fff;
   display: flex;
   flex-direction: column;
 }
 
+.chatHeader {
+  height: 74px;
+  min-height: 74px;
+  border-bottom: 1px solid #dbdbdb;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.chatUser {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #262626;
+}
+
+.chatHeader .avatarCircle {
+  width: 44px;
+  height: 44px;
+}
+
+.messagesList {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 6px 12px 6px;
+  min-height: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+
 .myMessageRow,
 .otherMessageRow {
-  display: flex;
   width: 100%;
-  margin-bottom: 10px;
+  display: flex;
+  margin-bottom: 8px;
 }
 
 .myMessageRow {
@@ -21,24 +145,25 @@
 
 .otherMessageRow {
   justify-content: flex-start;
+  padding-left: 4px;
 }
 
 .myMessage,
 .otherMessage {
   width: fit-content;
-  max-width: 65%;
-  padding: 10px 14px;
+  max-width: 58%;
+  padding: 8px 12px;
   border-radius: 22px;
   font-size: 14px;
-  line-height: 1.45;
+  line-height: 1.35;
   word-break: break-word;
   box-sizing: border-box;
 }
 
 .myMessage {
-  background: linear-gradient(135deg, #7b2cff, #4a00ff);
-  color: white;
-  border-bottom-right-radius: 8px;
+  background: #3797f0;
+  color: #fff;
+  border-bottom-right-radius: 6px;
   margin-left: auto;
 }
 
@@ -46,54 +171,167 @@
   background: #efefef;
   color: #111;
   border-bottom-left-radius: 8px;
-  margin-right: auto;
-}
-.chatArea {
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-  height: 100%;
-  min-width: 0;
-  background: #fff;
-}
-
-.chatHeader {
-  min-height: 72px;
-  border-bottom: 1px solid #dbdbdb;
-  display: flex;
-  align-items: center;
-  padding: 0 16px;
-  box-sizing: border-box;
-  background: #fff;
-  position: sticky;
-  top: 0;
-  z-index: 2;
+  margin-left: 4px;
 }
 
 .messageForm {
-  padding: 12px 16px 16px;
   border-top: 1px solid #dbdbdb;
-  box-sizing: border-box;
+  padding: 12px 16px;
   background: #fff;
-  position: sticky;
-  bottom: 0;
+  box-sizing: border-box;
 }
-@media (max-width: 768px) {
+
+.input {
+  width: 100%;
+  height: 44px;
+  border: 1px solid #dbdbdb;
+  border-radius: 999px;
+  padding: 0 18px;
+  outline: none;
+  font-size: 14px;
+  color: #262626;
+  box-sizing: border-box;
+}
+
+.input::placeholder {
+  color: #8e8e8e;
+}
+
+.input:focus {
+  border-color: #a8a8a8;
+}
+
+.emptyState {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8e8e8e;
+  font-size: 18px;
+  text-align: center;
+  padding: 20px;
+}
+
+/* tablet */
+@media (max-width: 900px) {
+  .page {
+    grid-template-columns: 300px minmax(0, 1fr);
+  }
+
   .myMessage,
   .otherMessage {
-    max-width: 78%;
+    max-width: 70%;
+  }
+}
+
+/* phone */
+@media (max-width: 768px) {
+  .page {
+    grid-template-columns: 1fr;
+    height: calc(100vh - 60px);
+  }
+
+  .sidebar {
+    height: 240px;
+    border-right: none;
+    border-bottom: 1px solid #dbdbdb;
+  }
+
+  .myName {
+    height: 58px;
+    font-size: 18px;
+    padding: 0 16px;
+  }
+
+  .conversations {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .conversationItem {
+    width: 82px;
+    min-width: 82px;
+    padding: 0;
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+  }
+
+  .conversationItem:hover {
+    background: transparent;
+  }
+
+  .avatarCircle {
+    width: 58px;
+    height: 58px;
+  }
+
+  .conversationText {
+    width: 100%;
+  }
+
+  .username {
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .preview {
+    display: none;
+  }
+
+  .chatArea {
+    height: calc(100vh - 300px);
+  }
+
+  .chatHeader {
+    height: 56px;
+    min-height: 56px;
+    padding: 0 14px;
+  }
+
+  .chatHeader .avatarCircle {
+    width: 36px;
+    height: 36px;
   }
 
   .messagesList {
-    padding: 16px 12px;
+    padding: 14px 12px;
+  }
+
+  .myMessage,
+  .otherMessage {
+    max-width: 78%;
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  .messageForm {
+    padding: 10px 12px;
+  }
+
+  .input {
+    height: 42px;
   }
 }
 
+/* very small phones */
 @media (max-width: 480px) {
+  .sidebar {
+    height: 210px;
+  }
+
+  .chatArea {
+    height: calc(100vh - 270px);
+  }
+
   .myMessage,
   .otherMessage {
-    max-width: 85%;
+    max-width: 84%;
     font-size: 13px;
-    padding: 9px 13px;
   }
 }
