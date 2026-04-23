@@ -4,8 +4,9 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
-    "dev": "vite",
+    "dev": "nodemon app.js",
     "build": "vite build",
+    "start": "node app.js",
     "preview": "vite preview",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
