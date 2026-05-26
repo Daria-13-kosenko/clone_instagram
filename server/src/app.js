@@ -22,7 +22,7 @@ const __dirname = path.dirname(__filename)
 
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://clone-instagram-s30u.onrender.com',
+  'https://clone-instagram-2.onrender.com',
 ]
 
 const isAllowedOrigin = (origin) => {
